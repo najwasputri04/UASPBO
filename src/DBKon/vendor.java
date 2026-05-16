@@ -521,7 +521,7 @@ public class vendor extends javax.swing.JFrame {
         // TODO add your handling code here:
         deleteVendor hapus = new deleteVendor();
         hapus.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_deleteVendorMouseClicked
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
