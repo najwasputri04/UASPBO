@@ -4,11 +4,20 @@
  */
 package DBKon;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author asus
  */
 public class vendor extends javax.swing.JFrame {
+    
+    Koneksi kon;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(vendor.class.getName());
 
@@ -17,6 +26,21 @@ public class vendor extends javax.swing.JFrame {
      */
     public vendor() {
         initComponents();
+        kon = new Koneksi();
+        
+        // Ambil ukuran layar user (monitor)
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Ambil ukuran frame kamu (900x600)
+        int frameWidth = this.getSize().width;
+
+        // Hitung posisi X agar mepet ke kanan
+        int x = screenSize.width - frameWidth;
+        int y = 0; // 0 berarti mepet ke atas
+
+        // Set lokasi frame
+        this.setTable("");
+        this.setLocation(x, y);
     }
 
     /**
@@ -28,21 +52,481 @@ public class vendor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel11 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        eventPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        vendorPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        gsPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        ticketPanel = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        buyerPanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        addVendor = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        editVendor = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        deleteVendor = new javax.swing.JLabel();
+        vendorSearch = new javax.swing.JTextField();
+        btn_search = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        vendorTable = new javax.swing.JTable();
+        totalVendor = new javax.swing.JLabel();
+
+        jLabel11.setText("jLabel11");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("vendor");
+        setPreferredSize(new java.awt.Dimension(900, 600));
+
+        jPanel1.setBackground(new java.awt.Color(27, 42, 79));
+        jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
+
+        eventPanel.setPreferredSize(new java.awt.Dimension(196, 81));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/calender_hitam.png"))); // NOI18N
+
+        jLabel2.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel2.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel2.setText("[EVENT]");
+
+        jLabel3.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel3.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel3.setText("Manage Event");
+
+        javax.swing.GroupLayout eventPanelLayout = new javax.swing.GroupLayout(eventPanel);
+        eventPanel.setLayout(eventPanelLayout);
+        eventPanelLayout.setHorizontalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        eventPanelLayout.setVerticalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
+                .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(eventPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1))
+                    .addGroup(eventPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        vendorPanel.setBackground(new java.awt.Color(248, 102, 102));
+        vendorPanel.setPreferredSize(new java.awt.Dimension(196, 81));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_putih.png"))); // NOI18N
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("[VENDOR]");
+
+        jLabel5.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Manage Vendor");
+
+        javax.swing.GroupLayout vendorPanelLayout = new javax.swing.GroupLayout(vendorPanel);
+        vendorPanel.setLayout(vendorPanelLayout);
+        vendorPanelLayout.setHorizontalGroup(
+            vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vendorPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        vendorPanelLayout.setVerticalGroup(
+            vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vendorPanelLayout.createSequentialGroup()
+                .addGroup(vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(vendorPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel6))
+                    .addGroup(vendorPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        gsPanel.setPreferredSize(new java.awt.Dimension(196, 81));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/mic_hitam.png"))); // NOI18N
+
+        jLabel8.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel8.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel8.setText("[GUEST STAR]");
+
+        jLabel9.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel9.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel9.setText("Manage Guest");
+
+        javax.swing.GroupLayout gsPanelLayout = new javax.swing.GroupLayout(gsPanel);
+        gsPanel.setLayout(gsPanelLayout);
+        gsPanelLayout.setHorizontalGroup(
+            gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gsPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addGroup(gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        gsPanelLayout.setVerticalGroup(
+            gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gsPanelLayout.createSequentialGroup()
+                .addGroup(gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gsPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel7))
+                    .addGroup(gsPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        ticketPanel.setPreferredSize(new java.awt.Dimension(196, 81));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/ticket_hitam.png"))); // NOI18N
+
+        jLabel12.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel12.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel12.setText("[TICKETS]");
+
+        jLabel13.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel13.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel13.setText("Manage Ticket");
+
+        javax.swing.GroupLayout ticketPanelLayout = new javax.swing.GroupLayout(ticketPanel);
+        ticketPanel.setLayout(ticketPanelLayout);
+        ticketPanelLayout.setHorizontalGroup(
+            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addGroup(ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        ticketPanelLayout.setVerticalGroup(
+            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketPanelLayout.createSequentialGroup()
+                .addGroup(ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ticketPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel10))
+                    .addGroup(ticketPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        buyerPanel.setPreferredSize(new java.awt.Dimension(196, 81));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/user_hitam.png"))); // NOI18N
+
+        jLabel15.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel15.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel15.setText("[BUYER]");
+
+        jLabel16.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel16.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel16.setText("Manage Buyer");
+
+        javax.swing.GroupLayout buyerPanelLayout = new javax.swing.GroupLayout(buyerPanel);
+        buyerPanel.setLayout(buyerPanelLayout);
+        buyerPanelLayout.setHorizontalGroup(
+            buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buyerPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addGroup(buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel15))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        buyerPanelLayout.setVerticalGroup(
+            buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buyerPanelLayout.createSequentialGroup()
+                .addGroup(buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buyerPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel14))
+                    .addGroup(buyerPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vendorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buyerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(vendorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(gsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(buyerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
+        );
+
+        jLabel17.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel17.setText("VENDOR DATA MANAGEMENT");
+
+        jPanel4.setBackground(new java.awt.Color(27, 42, 79));
+        jPanel4.setPreferredSize(new java.awt.Dimension(164, 29));
+
+        addVendor.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        addVendor.setForeground(new java.awt.Color(255, 255, 255));
+        addVendor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/add_putih.png"))); // NOI18N
+        addVendor.setText("ADD NEW VENDOR");
+        addVendor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addVendorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addVendor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(addVendor)
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(27, 42, 79));
+        jPanel5.setPreferredSize(new java.awt.Dimension(164, 29));
+
+        editVendor.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        editVendor.setForeground(new java.awt.Color(255, 255, 255));
+        editVendor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
+        editVendor.setText("EDIT SELECTED");
+        editVendor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editVendorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(editVendor, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(editVendor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+        );
+
+        jPanel6.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel6.setPreferredSize(new java.awt.Dimension(164, 29));
+
+        deleteVendor.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        deleteVendor.setForeground(new java.awt.Color(255, 255, 255));
+        deleteVendor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
+        deleteVendor.setText("DELETE SELECTED");
+        deleteVendor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteVendorMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(deleteVendor)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(deleteVendor))
+        );
+
+        vendorSearch.setPreferredSize(new java.awt.Dimension(313, 34));
+        vendorSearch.addActionListener(this::vendorSearchActionPerformed);
+
+        btn_search.setBackground(new java.awt.Color(27, 42, 79));
+        btn_search.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(255, 255, 255));
+        btn_search.setText("SEARCH");
+        btn_search.setPreferredSize(new java.awt.Dimension(77, 34));
+        btn_search.addActionListener(this::btn_searchActionPerformed);
+
+        vendorTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "vendorID", "namaVendor", "serviceType", "contactPerson", "contactNumber"
+            }
+        ));
+        jScrollPane1.setViewportView(vendorTable);
+
+        totalVendor.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        totalVendor.setForeground(new java.awt.Color(27, 42, 79));
+        totalVendor.setText("TOTAL VENDOR:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalVendor))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(totalVendor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void vendorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vendorSearchActionPerformed
+
+    private void addVendorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addVendorMouseClicked
+        // TODO add your handling code here:
+        addVendor tambah = new addVendor();
+        tambah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addVendorMouseClicked
+
+    private void editVendorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editVendorMouseClicked
+        // TODO add your handling code here:
+        updateVendor edit = new updateVendor();
+        edit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_editVendorMouseClicked
+
+    private void deleteVendorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteVendorMouseClicked
+        // TODO add your handling code here:
+        deleteVendor hapus = new deleteVendor();
+        hapus.setVisible(true);
+        
+    }//GEN-LAST:event_deleteVendorMouseClicked
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        setTable(vendorSearch.getText());
+    }//GEN-LAST:event_btn_searchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,7 +552,71 @@ public class vendor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new vendor().setVisible(true));
     }
+    
+    public void setTable(String search){
+        // TODO add your handling code here:
+        Object header[] = {"vendorID", "namaVendor", "serviceType", "contactPerson", "contactNumber"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        
+       // set model table
+        vendorTable.setModel(data);
+        
+       //qry
+       String tampil = "SELECT * FROM vendor WHERE vendor_name LIKE '%"+ search +"%'";
+       
+        try {
+            Statement st = kon.con.createStatement();
+            ResultSet rs = st.executeQuery(tampil);
+            
+            // menampilkan data
+            while (rs.next()){
+                String kolom1 = rs.getString(1);
+                String kolom2 = rs.getString(2);
+                String kolom3 = rs.getString(3);
+                String kolom4 = rs.getString(4);
+                String kolom5 = rs.getString(5);
+                String kolom[] = {kolom1, kolom2, kolom3, kolom4, kolom5};
+                data.addRow(kolom);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());          
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addVendor;
+    private javax.swing.JButton btn_search;
+    private javax.swing.JPanel buyerPanel;
+    private javax.swing.JLabel deleteVendor;
+    private javax.swing.JLabel editVendor;
+    private javax.swing.JPanel eventPanel;
+    private javax.swing.JPanel gsPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel ticketPanel;
+    private javax.swing.JLabel totalVendor;
+    private javax.swing.JPanel vendorPanel;
+    private javax.swing.JTextField vendorSearch;
+    private javax.swing.JTable vendorTable;
     // End of variables declaration//GEN-END:variables
 }
