@@ -38,6 +38,6 @@ public class Koneksi {
     }
     
     public static void main (String args[]){
-            Koneksi k = new Koneksi();
+            Koneksi kon = new Koneksi();
         }
 }

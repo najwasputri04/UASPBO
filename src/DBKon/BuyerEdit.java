@@ -6,234 +6,178 @@ package DBKon;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
  */
-public class BuyerManagement extends javax.swing.JFrame {
+public class BuyerEdit extends javax.swing.JFrame {
     
     Koneksi kon;
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuyerManagement.class.getName());
-    
-    private javax.swing.table.DefaultTableModel tableModel;
+    private String buyerId;
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuyerEdit.class.getName());
 
     /**
-     * Creates new form BuyerManagement
+     * Creates new form BuyerEdit
      */
-    public BuyerManagement() {
+    public BuyerEdit(String buyerId) {
         initComponents();
-        tableBuyer.setRowSelectionAllowed(true);
-        tableBuyer.setSelectionMode(
-            javax.swing.ListSelectionModel.SINGLE_SELECTION
-        );
+
         kon = new Koneksi();
-        initTableModel();
-        try {
-            loadBuyerData();
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        this.buyerId = buyerId;
+
+        txtBuyerId.setEditable(false);
+
+        loadEventCombo();
+        loadBuyerData();
+
+        jLabel25.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                saveChanges();
+            }
+        });
+
+        lblBtnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new BuyerManagement().setVisible(true);
+                dispose();
+            }
+        });
+    }
+    
+    private void loadEventCombo(){
+        cmbEvent.removeAllItems();
+        String query_edit = "SELECT event_id, event_name FROM event";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(query_edit); 
+                java.sql.ResultSet rs = ps.executeQuery()){
+            while(rs.next()){
+                cmbEvent.addItem(rs.getString("event_name"));
+            }
+        } catch (java.sql.SQLException e){
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load event: " + e.getMessage());
         }
-        
-        label21.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                new BuyerCreate().setVisible(true);
-                dispose();
+        cmbTicketCategory.removeAllItems();
+        String sql2 = "SELECT DISTINCT category FROM ticket";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql2);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                cmbTicketCategory.addItem(rs.getString("category"));
             }
-        });
-        
-        panelBtnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-
-                int selectedRow = -1;
-                int totalChecked = 0;
-
-                for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
-
-                    if (checked != null && checked) {
-                        selectedRow = i;
-                        totalChecked++;
-                    }
-                }
-
-                if (totalChecked == 0) {
-                    javax.swing.JOptionPane.showMessageDialog(
-                            BuyerManagement.this,
-                            "Pilih satu data buyer!",
-                            "Peringatan",
-                            javax.swing.JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                if (totalChecked > 1) {
-                    javax.swing.JOptionPane.showMessageDialog(
-                            BuyerManagement.this,
-                            "Edit hanya bisa satu data!",
-                            "Peringatan",
-                            javax.swing.JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                String id = tableModel.getValueAt(selectedRow, 1).toString();
-
-                BuyerEdit edit = new BuyerEdit(id);
-                edit.setVisible(true);
-
-                dispose();
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load kategori: " + e.getMessage());
+        }
+    }
+    
+    private void loadBuyerData() {
+        String sqlBuyer = "SELECT buyer_id, full_name, email_address, contact_number FROM buyer WHERE buyer_id = ?";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sqlBuyer)) {
+            ps.setString(1, buyerId);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                txtBuyerId.setText(rs.getString("buyer_id"));
+                txtFullName.setText(rs.getString("full_name"));
+                txtEmail.setText(rs.getString("email_address"));
+                txtContactNumber.setText(rs.getString("contact_number"));
             }
-        });
-        
-        panelBtnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load data buyer: " + e.getMessage());
+        }
 
-                // Cek dulu apakah ada yang dicentang
-                boolean adaYangDipilih = false;
-                for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
-                    if (checked != null && checked) {
-                        adaYangDipilih = true;
+        String sqlTrx = "SELECT e.event_name, t.category " +
+                        "FROM `transaction` tr " +
+                        "JOIN ticket t ON tr.ticket_id = t.ticket_id " +
+                        "JOIN event e ON t.event_id = e.event_id " +
+                        "WHERE tr.buyer_id = ? " +
+                        "ORDER BY tr.transaction_date DESC LIMIT 1";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sqlTrx)) {
+            ps.setString(1, buyerId);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String eventName = rs.getString("event_name");
+                String category  = rs.getString("category");
+
+                // Set combobox dengan loop untuk memastikan item ketemu
+                for (int i = 0; i < cmbEvent.getItemCount(); i++) {
+                    if (cmbEvent.getItemAt(i).equals(eventName)) {
+                        cmbEvent.setSelectedIndex(i);
                         break;
                     }
                 }
-
-                if (!adaYangDipilih) {
-                    javax.swing.JOptionPane.showMessageDialog(
-                            BuyerManagement.this,
-                            "Pilih minimal satu data!",
-                            "Peringatan",
-                            javax.swing.JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                // ✅ TAMBAHAN: konfirmasi sebelum hapus
-                int confirm = javax.swing.JOptionPane.showConfirmDialog(
-                        BuyerManagement.this,
-                        "Yakin ingin menghapus data yang dipilih?\nSemua transaksi terkait juga akan ikut terhapus.",
-                        "Konfirmasi Hapus",
-                        javax.swing.JOptionPane.YES_NO_OPTION,
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                if (confirm != javax.swing.JOptionPane.YES_OPTION) {
-                    return; // Batal hapus
-                }
-
-                // Lanjut hapus jika user klik YES
-                java.util.ArrayList<String> selectedIds = new java.util.ArrayList<>();
-
-                for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
-
-                    if (checked != null && checked) {
-                        String id = tableModel.getValueAt(i, 1).toString();
-                        selectedIds.add(id);
+                for (int i = 0; i < cmbTicketCategory.getItemCount(); i++) {
+                    if (cmbTicketCategory.getItemAt(i).equals(category)) {
+                        cmbTicketCategory.setSelectedIndex(i);
+                        break;
                     }
                 }
-
-                // Hapus semua data terpilih
-                for (String id : selectedIds) {
-                    deleteBuyer(id);
-                }
-
-                // Refresh tabel
-                loadBuyerData();
-                
-                javax.swing.JOptionPane.showMessageDialog(
-                    BuyerManagement.this,
-                    "Data berhasil dihapus!"
-                );
             }
-        });
-    }
-    
-    private void initTableModel(){
-        String[] columns = {"SELECT","BUYER ID", "FULL NAME", "EMAIL", "CONTACT NUMBER", "EVENT REGISTERED", "TICKET CATEGORY"};
-        tableModel = new javax.swing.table.DefaultTableModel(columns, 0){
-            @Override
-            public Class<?> getColumnClass(int column){
-                if(column == 0){
-                    return Boolean.class;
-                }
-                return String.class;
-            }
-
-            @Override
-            public boolean isCellEditable(int row, int col){
-                return col == 0;
-            }
-        };
-        tableBuyer.setModel(tableModel);
-        tableBuyer.getColumnModel().getColumn(0).setMaxWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setMinWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
-    }
-    
-    private void loadBuyerData(){
-        tableModel.setRowCount(0);
-        
-        String sql = "SELECT b.buyer_id, b.full_name, b.email_address, b.contact_number, " +
-                    "e.event_name, t.category " +
-                    "FROM buyer b " +
-                    "LEFT JOIN `transaction` tr ON tr.transaction_id = (" +
-                    "    SELECT transaction_id FROM `transaction` " +
-                    "    WHERE buyer_id = b.buyer_id " +
-                    "    ORDER BY transaction_date DESC LIMIT 1" +
-                    ") " +
-                    "LEFT JOIN ticket t ON tr.ticket_id = t.ticket_id " +
-                    "LEFT JOIN event e ON t.event_id = e.event_id " +
-                    "ORDER BY b.buyer_id";
-        
-        try (   java.sql.PreparedStatement ps = kon.con.prepareStatement(sql);
-                java.sql.ResultSet rs = ps.executeQuery()) { 
-            while (rs.next()) {
-                tableModel.addRow(new Object[]{
-                    false,
-                    rs.getString("buyer_id"),
-                    rs.getString("full_name"),
-                    rs.getString("email_address"),
-                    rs.getString("contact_number"),
-                    rs.getString("event_name"), 
-                    rs.getString("category") 
-                });
-            }
-            lblCountAttendees.setText("Registered Attendees: " + tableModel.getRowCount());
         } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load transaksi: " + e.getMessage());
+        }
+    }
+    
+    private void saveChanges() {
+        // 1. Update data buyer
+        String sqlBuyer = "UPDATE buyer SET full_name=?, email_address=?, contact_number=? WHERE buyer_id=?";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sqlBuyer)) {
+            ps.setString(1, txtFullName.getText().trim());
+            ps.setString(2, txtEmail.getText().trim());
+            ps.setString(3, txtContactNumber.getText().trim());
+            ps.setString(4, buyerId);
+            ps.executeUpdate();
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal update buyer: " + e.getMessage());
+            return;
+        }
+
+        // 2. Cari ticket_id berdasarkan event + category yang dipilih
+        String selectedEvent    = cmbEvent.getSelectedItem().toString();
+        String selectedCategory = cmbTicketCategory.getSelectedItem().toString();
+
+        String sqlTicket = "SELECT t.ticket_id FROM ticket t " +
+                           "JOIN event e ON t.event_id = e.event_id " +
+                           "WHERE e.event_name = ? AND t.category = ? LIMIT 1";
+
+        int ticketId = -1;
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sqlTicket)) {
+            ps.setString(1, selectedEvent);
+            ps.setString(2, selectedCategory);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ticketId = rs.getInt("ticket_id");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Kombinasi event dan kategori tiket tidak ditemukan!");
+                return;
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal cari ticket: " + e.getMessage());
+            return;
+        }
+
+        // 3. Update transaksi terakhir buyer dengan ticket_id baru
+        String sqlTrx = "UPDATE `transaction` SET ticket_id = ? " +
+                        "WHERE buyer_id = ? " +
+                        "ORDER BY transaction_date DESC LIMIT 1";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sqlTrx)) {
+            ps.setInt(1, ticketId);
+            ps.setString(2, buyerId);
+            int rows = ps.executeUpdate();
+            if (rows == 0) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                    "Buyer tidak punya transaksi, hanya data profil yang diupdate.");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil diupdate!");
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal update transaksi: " + e.getMessage());
         }
     }
 
-    private void deleteBuyer(String buyerId) {
-        // Hapus transaksi terkait dulu (FK constraint)
-        String sqlDelTrx = "DELETE FROM `transaction` WHERE buyer_id = ?";
-        String sqlDelBuyer = "DELETE FROM buyer WHERE buyer_id = ?";
- 
-        try {
-            kon.con.setAutoCommit(false);
- 
-            try (java.sql.PreparedStatement ps1 = kon.con.prepareStatement(sqlDelTrx)) {
-                ps1.setString(1, buyerId);
-                ps1.executeUpdate();
-            }
- 
-            try (java.sql.PreparedStatement ps2 = kon.con.prepareStatement(sqlDelBuyer)) {
-                ps2.setString(1, buyerId);
-                ps2.executeUpdate();
-            }
- 
-            kon.con.commit();
- 
-        } catch (java.sql.SQLException e) {
-            try { kon.con.rollback(); } catch (java.sql.SQLException ex) { /* abaikan */ }
-            javax.swing.JOptionPane.showMessageDialog(this,
-                    "Gagal menghapus: " + e.getMessage());
-        } finally {
-            try { kon.con.setAutoCommit(true); } catch (java.sql.SQLException ex) { /* abaikan */ }
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,22 +187,24 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        panelBtnAdd = new javax.swing.JPanel();
-        label21 = new javax.swing.JLabel();
-        panelBtnEdit = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        panelBtnDelete = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableBuyer = new javax.swing.JTable();
-        txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        lblBtnBack = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        txtBuyerId = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        txtFullName = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        lblCountAttendees = new javax.swing.JLabel();
+        txtContactNumber = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        cmbEvent = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        cmbTicketCategory = new javax.swing.JComboBox<>();
+        lblBtnSave = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         eventPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -283,169 +229,148 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 625));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(27, 46, 76));
-        jLabel11.setText("BUYER DATA MANAGEMENT");
+        jLabel11.setText("EDIT BUYER DATA");
 
-        panelBtnAdd.setBackground(new java.awt.Color(27, 46, 76));
+        jPanel1.setBackground(new java.awt.Color(27, 46, 76));
 
-        label21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        label21.setForeground(new java.awt.Color(255, 255, 255));
-        label21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/add_putih.png"))); // NOI18N
-        label21.setText("ADD NEW BUYER");
+        lblBtnBack.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblBtnBack.setForeground(new java.awt.Color(255, 255, 255));
+        lblBtnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/chevron_left.png"))); // NOI18N
+        lblBtnBack.setText("BACK");
 
-        javax.swing.GroupLayout panelBtnAddLayout = new javax.swing.GroupLayout(panelBtnAdd);
-        panelBtnAdd.setLayout(panelBtnAddLayout);
-        panelBtnAddLayout.setHorizontalGroup(
-            panelBtnAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnAddLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(label21, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblBtnBack)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
-        panelBtnAddLayout.setVerticalGroup(
-            panelBtnAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnAddLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label21)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelBtnEdit.setBackground(new java.awt.Color(27, 46, 76));
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
-        jLabel21.setText("EDIT SELECTED");
-
-        javax.swing.GroupLayout panelBtnEditLayout = new javax.swing.GroupLayout(panelBtnEdit);
-        panelBtnEdit.setLayout(panelBtnEditLayout);
-        panelBtnEditLayout.setHorizontalGroup(
-            panelBtnEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnEditLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel21)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelBtnEditLayout.setVerticalGroup(
-            panelBtnEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBtnEditLayout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel21)
+                .addComponent(lblBtnBack)
                 .addContainerGap())
         );
 
-        panelBtnDelete.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel18.setText("Buyer ID");
 
-        jPanel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jPanel20.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
-        jPanel20.setText("DELETE SELECTED");
+        txtBuyerId.addActionListener(this::txtBuyerIdActionPerformed);
 
-        javax.swing.GroupLayout panelBtnDeleteLayout = new javax.swing.GroupLayout(panelBtnDelete);
-        panelBtnDelete.setLayout(panelBtnDeleteLayout);
-        panelBtnDeleteLayout.setHorizontalGroup(
-            panelBtnDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnDeleteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel20)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jLabel19.setText("Full Name");
+
+        txtFullName.addActionListener(this::txtFullNameActionPerformed);
+
+        txtEmail.addActionListener(this::txtEmailActionPerformed);
+
+        jLabel20.setText("Email");
+
+        txtContactNumber.addActionListener(this::txtContactNumberActionPerformed);
+
+        jLabel21.setText("Contact Number");
+
+        jLabel22.setText("Event Registered");
+
+        cmbEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel23.setText("Ticket Category");
+
+        cmbTicketCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblBtnSave.setBackground(new java.awt.Color(27, 46, 76));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/save.png"))); // NOI18N
+        jLabel25.setText("SAVE CHANGES");
+
+        javax.swing.GroupLayout lblBtnSaveLayout = new javax.swing.GroupLayout(lblBtnSave);
+        lblBtnSave.setLayout(lblBtnSaveLayout);
+        lblBtnSaveLayout.setHorizontalGroup(
+            lblBtnSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lblBtnSaveLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel25)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
-        panelBtnDeleteLayout.setVerticalGroup(
-            panelBtnDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBtnDeleteLayout.createSequentialGroup()
+        lblBtnSaveLayout.setVerticalGroup(
+            lblBtnSaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblBtnSaveLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel20)
+                .addComponent(jLabel25)
                 .addContainerGap())
         );
-
-        tableBuyer.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "BUYER ID", "FULL NAME", "EMAIL", "CONTACT NUMBER", "EVENT REGISTERED", "TICKET CATEGORY"
-            }
-        ));
-        jScrollPane1.setViewportView(tableBuyer);
-
-        txtSearch.addActionListener(this::txtSearchActionPerformed);
-
-        btnSearch.setText("CARI");
-        btnSearch.addActionListener(this::btnSearchActionPerformed);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
+                    .addComponent(txtContactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(panelBtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelBtnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelBtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
+                            .addComponent(txtBuyerId, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(cmbTicketCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22)
+                            .addComponent(cmbEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblBtnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelBtnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelBtnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBuyerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/info.png"))); // NOI18N
-        jLabel20.setText("Quick Info");
-
-        lblCountAttendees.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblCountAttendees.setText("Registered Attendees:");
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCountAttendees)
-                    .addComponent(jLabel20))
-                .addContainerGap(642, Short.MAX_VALUE))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbTicketCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCountAttendees)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtContactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(lblBtnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(293, 293, 293))
         );
 
         jPanel10.setBackground(new java.awt.Color(27, 42, 79));
@@ -698,71 +623,40 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 5, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(99, 99, 99))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 108, Short.MAX_VALUE))
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+    private void txtBuyerIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuyerIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchActionPerformed
+    }//GEN-LAST:event_txtBuyerIdActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void txtFullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullNameActionPerformed
         // TODO add your handling code here:
-        String keyword = txtSearch.getText().trim().toLowerCase();
-        tableModel.setRowCount(0);
+    }//GEN-LAST:event_txtFullNameActionPerformed
 
-        String sql = "SELECT b.buyer_id, b.full_name, b.email_address, b.contact_number, " +
-                     "e.event_name, t.category " +
-                     "FROM buyer b " +
-                     "LEFT JOIN transaction tr ON b.buyer_id = tr.buyer_id " +
-                     "LEFT JOIN ticket t ON tr.ticket_id = t.ticket_id " +
-                     "LEFT JOIN event e ON t.event_id = e.event_id " +
-                     "WHERE LOWER(b.full_name) LIKE ? OR LOWER(b.buyer_id) LIKE ?";
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
-        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql)) {
-
-            ps.setString(1, "%" + keyword + "%");
-            ps.setString(2, "%" + keyword + "%");
-
-            java.sql.ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                tableModel.addRow(new Object[]{
-                    rs.getString("buyer_id"),
-                    rs.getString("full_name"),
-                    rs.getString("email_address"),
-                    rs.getString("contact_number"),
-                    rs.getString("event_name"),
-                    rs.getString("category")
-                });
-            }
-
-            lblCountAttendees.setText("Registered Attendees: " + tableModel.getRowCount());
-
-        } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal mencari: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnSearchActionPerformed
+    private void txtContactNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactNumberActionPerformed
 
     /**
      * @param args the command line arguments
@@ -775,7 +669,7 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -786,12 +680,15 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new BuyerManagement().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> 
+            new BuyerEdit("B001").setVisible(true)
+        );
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
     private javax.swing.JPanel buyerPanel;
+    private javax.swing.JComboBox<String> cmbEvent;
+    private javax.swing.JComboBox<String> cmbTicketCategory;
     private javax.swing.JPanel eventPanel;
     private javax.swing.JPanel gsPanel;
     private javax.swing.JLabel jLabel1;
@@ -802,9 +699,14 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -814,18 +716,14 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JLabel jPanel20;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel label21;
-    private javax.swing.JLabel lblCountAttendees;
-    private javax.swing.JPanel panelBtnAdd;
-    private javax.swing.JPanel panelBtnDelete;
-    private javax.swing.JPanel panelBtnEdit;
-    private javax.swing.JTable tableBuyer;
+    private javax.swing.JLabel lblBtnBack;
+    private javax.swing.JPanel lblBtnSave;
     private javax.swing.JPanel ticketPanel;
-    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtBuyerId;
+    private javax.swing.JTextField txtContactNumber;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFullName;
     private javax.swing.JPanel vendorPanel;
     // End of variables declaration//GEN-END:variables
 }
