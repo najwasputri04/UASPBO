@@ -172,8 +172,24 @@ public class addGuestStar extends javax.swing.JFrame {
         String nama = namaTalent.getText().trim();
         String genreMusik = genre.getSelectedItem().toString();
         String contactperson = cp.getText();
-        int pembayaran = Integer.parseInt(fee.getText());
         String riderInfo = rider.getText().trim();
+        
+        if (nama.isEmpty() || fee.getText().isEmpty() || cp.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+           }
+            
+        if (genreMusik.equals("Pilih Genre")) {
+            JOptionPane.showMessageDialog(null, "Pilih genre terlebih dahulu!");
+            return;
+           }
+        
+        if (!fee.getText().matches("\\d+")) { 
+            JOptionPane.showMessageDialog(null, "Fee harus berupa angka!");
+            return;
+           }
+        
+        int pembayaran = Integer.parseInt(fee.getText());
         
         String query_tambah = "INSERT INTO guest_star (talent_name, genre, contact_person, fee, rider_info) " +
                               "VALUES ('" + nama + "', '" + genreMusik + "', '" + contactperson + "', '" + pembayaran + "', '" + riderInfo + "')";
