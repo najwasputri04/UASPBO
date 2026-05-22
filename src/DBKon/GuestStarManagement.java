@@ -3,12 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package DBKon;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.logging.Level;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author aleth
  */
 public class GuestStarManagement extends javax.swing.JFrame {
+    
+    Koneksi kon;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuestStarManagement.class.getName());
 
@@ -17,6 +24,22 @@ public class GuestStarManagement extends javax.swing.JFrame {
      */
     public GuestStarManagement() {
         initComponents();
+        kon = new Koneksi();
+        
+        // Ambil ukuran layar user (monitor)
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Ambil ukuran frame kamu (900x600)
+        int frameWidth = this.getSize().width;
+
+        // Hitung posisi X agar mepet ke kanan
+        int x = screenSize.width - frameWidth;
+        int y = 0; // 0 berarti mepet ke atas
+
+        // Set lokasi frame
+        this.setTable("");
+        this.setLocation(x, y);
+        
     }
 
     /**
@@ -32,10 +55,10 @@ public class GuestStarManagement extends javax.swing.JFrame {
         editGuestStar = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         deleteGuestStar = new javax.swing.JLabel();
-        vendorSearch = new javax.swing.JTextField();
+        GuestStarSearch = new javax.swing.JTextField();
         btn_search = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        vendorTable = new javax.swing.JTable();
+        GuestStarTable = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         eventPanel = new javax.swing.JPanel();
@@ -60,8 +83,8 @@ public class GuestStarManagement extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         addGuestStar = new javax.swing.JLabel();
-        totalVendor = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        totalGuestStar = new javax.swing.JLabel();
+        total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 600));
@@ -122,8 +145,8 @@ public class GuestStarManagement extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        vendorSearch.setPreferredSize(new java.awt.Dimension(313, 34));
-        vendorSearch.addActionListener(this::vendorSearchActionPerformed);
+        GuestStarSearch.setPreferredSize(new java.awt.Dimension(313, 34));
+        GuestStarSearch.addActionListener(this::GuestStarSearchActionPerformed);
 
         btn_search.setBackground(new java.awt.Color(27, 42, 79));
         btn_search.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -132,18 +155,18 @@ public class GuestStarManagement extends javax.swing.JFrame {
         btn_search.setPreferredSize(new java.awt.Dimension(77, 34));
         btn_search.addActionListener(this::btn_searchActionPerformed);
 
-        vendorTable.setModel(new javax.swing.table.DefaultTableModel(
+        GuestStarTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "vendorID", "namaVendor", "serviceType", "contactPerson", "contactNumber"
+                "Talent ID", "Talent Name", "Genre", "contactPerson", "Fee (IDR)", "Rider Info"
             }
         ));
-        jScrollPane1.setViewportView(vendorTable);
+        jScrollPane1.setViewportView(GuestStarTable);
 
         jLabel17.setBackground(new java.awt.Color(27, 42, 79));
         jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
@@ -245,7 +268,7 @@ public class GuestStarManagement extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("[GUEST STAR]");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/mic_putih.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/mic_putih.png"))); // NOI18N
 
         jLabel9.setBackground(new java.awt.Color(27, 42, 79));
         jLabel9.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -421,74 +444,69 @@ public class GuestStarManagement extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        totalVendor.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        totalVendor.setForeground(new java.awt.Color(27, 42, 79));
-        totalVendor.setText("TOTAL GUEST STAR:");
+        totalGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        totalGuestStar.setForeground(new java.awt.Color(27, 42, 79));
+        totalGuestStar.setText("TOTAL GUEST STAR : ");
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/mic_putih.png"))); // NOI18N
+        total.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); // NOI18N
+        total.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59))
-            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(436, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
-                        .addComponent(totalVendor))
+                        .addComponent(totalGuestStar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(total))
+                    .addComponent(jLabel17)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel11)))
-                .addContainerGap(492, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(GuestStarSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(40, 40, 40)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel17)
-                        .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(38, Short.MAX_VALUE)))
+                    .addContainerGap(808, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 271, Short.MAX_VALUE)
-                .addComponent(totalVendor)
-                .addGap(89, 89, 89))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GuestStarSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalGuestStar)
+                    .addComponent(total))
+                .addContainerGap(177, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(82, 82, 82)
-                            .addComponent(jLabel17)
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(29, 29, 29)
-                            .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(145, 145, 145)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -509,12 +527,12 @@ public class GuestStarManagement extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deleteGuestStarMouseClicked
 
-    private void vendorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorSearchActionPerformed
+    private void GuestStarSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuestStarSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_vendorSearchActionPerformed
+    }//GEN-LAST:event_GuestStarSearchActionPerformed
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
-        setTable(vendorSearch.getText());
+        setTable(GuestStarSearch.getText());
     }//GEN-LAST:event_btn_searchActionPerformed
 
     private void addGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGuestStarMouseClicked
@@ -548,8 +566,45 @@ public class GuestStarManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new GuestStarManagement().setVisible(true));
     }
+    
+    public void setTable(String search){
+        // TODO add your handling code here:
+        Object header[] = {"Talent ID", "Talent Name", "Genre", "contactPerson", "Fee (IDR)", "Rider Info"};
+        DefaultTableModel data = new DefaultTableModel(null, header);
+        
+       // set model table
+        GuestStarTable.setModel(data);
+        
+       //qry
+       String tampil = "SELECT * FROM guest_star WHERE talent_name LIKE '%"+ search +"%'";
+       
+        try {
+            Statement st = kon.con.createStatement();
+            ResultSet rs = st.executeQuery(tampil);
+            
+            // menampilkan data
+            while (rs.next()){
+                String kolom1 = rs.getString(1);
+                String kolom2 = rs.getString(2);
+                String kolom3 = rs.getString(3);
+                String kolom4 = rs.getString(4);
+                String kolom5 = rs.getString(5);
+                String kolom6 = rs.getString(6);
+                String kolom[] = {kolom1, kolom2, kolom3, kolom4, kolom5, kolom6};
+                data.addRow(kolom);
+            }
+            
+            int jumlah = GuestStarTable.getRowCount();
+            total.setText(String.valueOf(jumlah));
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());          
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField GuestStarSearch;
+    private javax.swing.JTable GuestStarTable;
     private javax.swing.JLabel addGuestStar;
     private javax.swing.JButton btn_search;
     private javax.swing.JPanel buyerPanel;
@@ -559,7 +614,6 @@ public class GuestStarManagement extends javax.swing.JFrame {
     private javax.swing.JPanel gsPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -580,9 +634,8 @@ public class GuestStarManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel ticketPanel;
-    private javax.swing.JLabel totalVendor;
+    private javax.swing.JLabel total;
+    private javax.swing.JLabel totalGuestStar;
     private javax.swing.JPanel vendorPanel;
-    private javax.swing.JTextField vendorSearch;
-    private javax.swing.JTable vendorTable;
     // End of variables declaration//GEN-END:variables
 }
