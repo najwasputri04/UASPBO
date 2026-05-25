@@ -28,6 +28,28 @@ public class BuyerEdit extends javax.swing.JFrame {
 
         kon = new Koneksi();
         this.buyerId = buyerId;
+        
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new vendor().setVisible(true);
+                dispose();
+            }
+        });
+        gsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new tiket().setVisible(true);
+                dispose();
+            }
+        });
 
         txtBuyerId.setEditable(false);
 
@@ -606,7 +628,7 @@ public class BuyerEdit extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(19, 19, 19)
                 .addComponent(vendorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addComponent(gsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -54,6 +54,29 @@ public class tiket extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         this.setVisible(true);
+        
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel2 = vendorPanel
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new vendor().setVisible(true);
+                dispose();
+            }
+        });
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel7 = gsPanel
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        // jPanel8 = ticketPanel, tidak perlu
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel9 = buyerPanel
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new BuyerManagement().setVisible(true);
+                dispose();
+            }
+        });
 
         
         // Ambil ukuran layar user (monitor)

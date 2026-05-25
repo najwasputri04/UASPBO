@@ -36,6 +36,28 @@ public class BuyerManagement extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
         
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new vendor().setVisible(true);
+                dispose();
+            }
+        });
+        gsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new tiket().setVisible(true);
+                dispose();
+            }
+        });
+        
         label21.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
