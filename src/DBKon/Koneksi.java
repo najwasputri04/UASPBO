@@ -12,13 +12,13 @@ import java.sql.DriverManager;
  * @author asus
  */
 public class Koneksi {
-    Connection con;
+    public Connection con;
     public  Koneksi() {
        String id, pass, driver, url;
        id = "root";
        pass = "";
        driver = "com.mysql.cj.jdbc.Driver";
-       url = "jdbc:mysql://localhost:3306/db_eventmanagement?userTimezone=true&server=UTC";
+       url = "jdbc:mysql://localhost:3306/db_eventmanagement?useSSL=false&serverTimezone=UTC";
        
         try {
             Class.forName(driver).newInstance();
@@ -38,6 +38,6 @@ public class Koneksi {
     }
     
     public static void main (String args[]){
-            Koneksi k = new Koneksi();
+            Koneksi kon = new Koneksi();
         }
 }

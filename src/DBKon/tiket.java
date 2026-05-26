@@ -4,20 +4,64 @@
  */
 package DBKon;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author asus
  */
-public class vendor extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(vendor.class.getName());
+public class tiket extends javax.swing.JFrame {
+    Koneksi kon;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(tiket.class.getName());
 
     /**
      * Creates new form vendor
      */
-    public vendor() {
-        initComponents();
+    public void loadTable() {
+        DefaultTableModel model = (DefaultTableModel) ticketTable.getModel();
+        model.setRowCount(0);
         
+        try {
+            String showTable = "select * from ticket";
+            ResultSet rs = kon.con.createStatement().executeQuery(showTable);
+        
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("ticket_id"),
+                    rs.getString("event_id"),
+                    rs.getString("category"),
+                    rs.getString("price"),
+                    rs.getString("total_stock"),
+                    rs.getString("available_stock")
+                });
+            }
+            
+            String countQuery = "select count(*) as total_tiket from ticket";
+            ResultSet rsCount = kon.con.createStatement().executeQuery(countQuery);
+            while (rsCount.next()) {
+                totalTicket.setText(rsCount.getString("total_tiket"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public tiket() {
+        initComponents();
+        kon = new Koneksi();
+        this.setVisible(true);
+        
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel2 = vendorPanel
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new vendor().setVisible(true);
+                dispose();
+            }
+        });
         jPanel7.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel7 = gsPanel
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -25,13 +69,7 @@ public class vendor extends javax.swing.JFrame {
                 dispose();
             }
         });
-        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel8 = ticketPanel
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                new tiket().setVisible(true);
-                dispose();
-            }
-        });
+        // jPanel8 = ticketPanel, tidak perlu
         jPanel9.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel9 = buyerPanel
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -39,6 +77,7 @@ public class vendor extends javax.swing.JFrame {
                 dispose();
             }
         });
+
         
         // Ambil ukuran layar user (monitor)
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -52,6 +91,8 @@ public class vendor extends javax.swing.JFrame {
 
         // Set lokasi frame
         this.setLocation(x, y);
+        
+        loadTable();
     }
 
     /**
@@ -87,22 +128,23 @@ public class vendor extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
+        addNewTicketCategory = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
+        editTicketBtn = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        vendorInput = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        delTicketBtn = new javax.swing.JLabel();
+        srcTf = new javax.swing.JTextField();
+        srcBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ticketTable = new javax.swing.JTable();
         jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        totalTicket = new javax.swing.JLabel();
 
         jLabel11.setText("jLabel11");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("vendor");
-        setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
         jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
@@ -132,7 +174,7 @@ public class vendor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,22 +188,21 @@ public class vendor extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(248, 102, 102));
         jPanel2.setPreferredSize(new java.awt.Dimension(196, 81));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_putih.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_hitam.png"))); // NOI18N
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(27, 42, 79));
         jLabel4.setText("[VENDOR]");
 
         jLabel5.setBackground(new java.awt.Color(27, 42, 79));
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(27, 42, 79));
         jLabel5.setText("Manage Vendor");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -175,7 +216,7 @@ public class vendor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +230,7 @@ public class vendor extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel7.setPreferredSize(new java.awt.Dimension(196, 81));
@@ -217,7 +258,7 @@ public class vendor extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,21 +272,22 @@ public class vendor extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        jPanel8.setBackground(new java.awt.Color(248, 102, 102));
         jPanel8.setPreferredSize(new java.awt.Dimension(196, 81));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/ticket_hitam.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/ticket_putih.png"))); // NOI18N
 
         jLabel12.setBackground(new java.awt.Color(27, 42, 79));
         jLabel12.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel12.setForeground(new java.awt.Color(242, 242, 242));
         jLabel12.setText("[TICKETS]");
 
         jLabel13.setBackground(new java.awt.Color(27, 42, 79));
         jLabel13.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel13.setForeground(new java.awt.Color(242, 242, 242));
         jLabel13.setText("Manage Ticket");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -259,7 +301,7 @@ public class vendor extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel12))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +315,7 @@ public class vendor extends javax.swing.JFrame {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel9.setPreferredSize(new java.awt.Dimension(196, 81));
@@ -301,7 +343,7 @@ public class vendor extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,7 +357,7 @@ public class vendor extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -345,69 +387,84 @@ public class vendor extends javax.swing.JFrame {
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jLabel17.setBackground(new java.awt.Color(27, 42, 79));
         jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel17.setText("VENDOR DATA MANAGEMENT");
+        jLabel17.setText("TICKET DATA MANAGEMENT");
 
         jPanel4.setBackground(new java.awt.Color(27, 42, 79));
         jPanel4.setPreferredSize(new java.awt.Dimension(164, 29));
 
-        jLabel18.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/add_putih.png"))); // NOI18N
-        jLabel18.setText("ADD NEW VENDOR");
+        addNewTicketCategory.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        addNewTicketCategory.setForeground(new java.awt.Color(255, 255, 255));
+        addNewTicketCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/add_putih.png"))); // NOI18N
+        addNewTicketCategory.setText("ADD NEW TICKET");
+        addNewTicketCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addNewTicketCategoryMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel18)
-                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addNewTicketCategory)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel18))
+                .addComponent(addNewTicketCategory))
         );
 
         jPanel5.setBackground(new java.awt.Color(27, 42, 79));
         jPanel5.setPreferredSize(new java.awt.Dimension(164, 29));
 
-        jLabel19.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
-        jLabel19.setText("EDIT SELECTED");
+        editTicketBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        editTicketBtn.setForeground(new java.awt.Color(255, 255, 255));
+        editTicketBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
+        editTicketBtn.setText("EDIT Ticket");
+        editTicketBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editTicketBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel19)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(editTicketBtn)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel19))
+                .addComponent(editTicketBtn))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 51, 51));
         jPanel6.setPreferredSize(new java.awt.Dimension(164, 29));
 
-        jLabel20.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
-        jLabel20.setText("DELETE SELECTED");
+        delTicketBtn.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        delTicketBtn.setForeground(new java.awt.Color(255, 255, 255));
+        delTicketBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
+        delTicketBtn.setText("DELETE TICKET");
+        delTicketBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delTicketBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -415,42 +472,53 @@ public class vendor extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel20)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(delTicketBtn)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel20))
+                .addComponent(delTicketBtn))
         );
 
-        vendorInput.setText("search");
-        vendorInput.setPreferredSize(new java.awt.Dimension(313, 34));
-        vendorInput.addActionListener(this::vendorInputActionPerformed);
+        srcTf.setPreferredSize(new java.awt.Dimension(313, 34));
+        srcTf.addActionListener(this::srcTfActionPerformed);
 
-        jButton1.setBackground(new java.awt.Color(27, 42, 79));
-        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SEARCH");
-        jButton1.setPreferredSize(new java.awt.Dimension(77, 34));
+        srcBtn.setBackground(new java.awt.Color(27, 42, 79));
+        srcBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        srcBtn.setForeground(new java.awt.Color(255, 255, 255));
+        srcBtn.setText("SEARCH");
+        srcBtn.setPreferredSize(new java.awt.Dimension(77, 34));
+        srcBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                srcBtnMouseClicked(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ticketTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ticketID", "eventID", "category", "price", "totalStock", "availableStock"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ticketTable);
 
         jLabel21.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel21.setText("TOTAL VENDOR:");
+        jLabel21.setText("TOTAL TICKET :");
+
+        jLabel22.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(27, 42, 79));
+
+        totalTicket.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        totalTicket.setForeground(new java.awt.Color(27, 42, 79));
+        totalTicket.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -461,25 +529,30 @@ public class vendor extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(vendorInput, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(srcTf, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(srcBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
-                .addGap(0, 32, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(12, 12, 12)
+                        .addComponent(totalTicket)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel22)))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(88, 88, 88)
                 .addComponent(jLabel17)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -488,21 +561,69 @@ public class vendor extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vendorInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(srcTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(srcBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jLabel21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addComponent(totalTicket))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void vendorInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorInputActionPerformed
+    private void srcTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_srcTfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_vendorInputActionPerformed
+    }//GEN-LAST:event_srcTfActionPerformed
+
+    private void addNewTicketCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNewTicketCategoryMouseClicked
+        // TODO add your handling code here:
+        inputTiket add = new inputTiket();
+        add.setVisible(true);
+        add.setLocationRelativeTo(null);
+    }//GEN-LAST:event_addNewTicketCategoryMouseClicked
+
+    private void editTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editTicketBtnMouseClicked
+        // TODO add your handling code here:
+        updateTiket edit = new updateTiket();
+        edit.setVisible(true);
+        edit.setLocationRelativeTo(null);
+    }//GEN-LAST:event_editTicketBtnMouseClicked
+
+    private void delTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delTicketBtnMouseClicked
+        // TODO add your handling code here:
+        deleteTiket delete = new deleteTiket();
+        delete.setVisible(true);
+        delete.setLocationRelativeTo(null);
+    }//GEN-LAST:event_delTicketBtnMouseClicked
+
+    private void srcBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_srcBtnMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) ticketTable.getModel();
+        model.setRowCount(0);
+        try {
+            String cariTiket = srcTf.getText();
+            String showTable = "select * from ticket where ticket_id = '"+cariTiket+"'";
+            ResultSet rs = kon.con.createStatement().executeQuery(showTable);
+        
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("ticket_id"),
+                    rs.getString("event_id"),
+                    rs.getString("category"),
+                    rs.getString("price"),
+                    rs.getString("total_stock"),
+                    rs.getString("available_stock")
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_srcBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -526,11 +647,13 @@ public class vendor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new vendor().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new tiket().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel addNewTicketCategory;
+    private javax.swing.JLabel delTicketBtn;
+    private javax.swing.JLabel editTicketBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -540,11 +663,9 @@ public class vendor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -562,7 +683,9 @@ public class vendor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField vendorInput;
+    private javax.swing.JButton srcBtn;
+    private javax.swing.JTextField srcTf;
+    private javax.swing.JTable ticketTable;
+    private javax.swing.JLabel totalTicket;
     // End of variables declaration//GEN-END:variables
 }
