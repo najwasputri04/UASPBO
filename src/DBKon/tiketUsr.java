@@ -54,6 +54,35 @@ public class tiketUsr extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         this.setVisible(true);
+        
+        //Pindah-pindah page
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new eventUsr();
+                dispose();
+            }
+        });
+        
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendorUsr();
+                dispose();
+            }
+        });
+        
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new guestStarUsr();
+                dispose();
+            }
+        });
+        
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new buyerUsr();
+                dispose();
+            }
+        });
 
         
         // Ambil ukuran layar user (monitor)

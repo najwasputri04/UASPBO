@@ -53,7 +53,35 @@ public class tiket extends javax.swing.JFrame {
     public tiket() {
         initComponents();
         kon = new Koneksi();
-        this.setVisible(true);
+        
+        //Pindah-pindah page
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendor();
+                dispose();
+            }
+        });
+        
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new EventManagement();
+                dispose();
+            }
+        });
+        
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new BuyerManagement();
+                dispose();
+            }
+        });
 
         
         // Ambil ukuran layar user (monitor)

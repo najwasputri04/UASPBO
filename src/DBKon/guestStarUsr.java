@@ -27,6 +27,34 @@ public class guestStarUsr extends javax.swing.JFrame {
         kon = new Koneksi();
         this.setVisible(true);
 
+        //Pindah-pindah page
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new eventUsr();
+                dispose();
+            }
+        });
+        
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendorUsr();
+                dispose();
+            }
+        });
+        
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiketUsr();
+                dispose();
+            }
+        });
+        
+        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new buyerUsr();
+                dispose();
+            }
+        });
         
         // Ambil ukuran layar user (monitor)
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();

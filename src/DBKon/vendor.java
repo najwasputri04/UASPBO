@@ -27,6 +27,36 @@ public class vendor extends javax.swing.JFrame {
     public vendor() {
         initComponents();
         kon = new Koneksi();
+        this.setVisible(true);
+        
+        //Pindah-pindah page
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiket();
+                dispose();
+            }
+        });
+        
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new EventManagement();
+                dispose();
+            }
+        });
+        
+        gsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        buyerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new BuyerManagement();
+                dispose();
+            }
+        });
         
         // Ambil ukuran layar user (monitor)
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();

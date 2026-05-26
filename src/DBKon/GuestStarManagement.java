@@ -26,6 +26,35 @@ public class GuestStarManagement extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         
+         //Pindah-pindah page
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new EventManagement();
+                dispose();
+            }
+        });
+        
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendor();
+                dispose();
+            }
+        });
+        
+        buyerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new BuyerManagement();
+                dispose();
+            }
+        });
+        
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiket();
+                dispose();
+            }
+        });
+        
         // Ambil ukuran layar user (monitor)
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 

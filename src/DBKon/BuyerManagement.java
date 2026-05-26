@@ -24,6 +24,37 @@ public class BuyerManagement extends javax.swing.JFrame {
      */
     public BuyerManagement() {
         initComponents();
+        this.setVisible(true);
+        
+        //Pindah-pindah page
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new EventManagement();
+                dispose();
+            }
+        });
+        
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendor();
+                dispose();
+            }
+        });
+        
+        gsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiket();
+                dispose();
+            }
+        });
+        
         tableBuyer.setRowSelectionAllowed(true);
         tableBuyer.setSelectionMode(
             javax.swing.ListSelectionModel.SINGLE_SELECTION

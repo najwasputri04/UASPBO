@@ -14,30 +14,30 @@ import javax.swing.JOptionPane;
  *
  * @author asus
  */
-public class vendorUsr extends javax.swing.JFrame {
-    Koneksi kon;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(vendorUsr.class.getName());
+public class eventUsr extends javax.swing.JFrame {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(eventUsr.class.getName());
 
     /**
      * Creates new form vendor
      */
     
-    public vendorUsr() {
+    public eventUsr() {
         initComponents();
-        kon = new Koneksi();
+        loadEventData();
+        updateQuickInfo();
         this.setVisible(true);
-
+        
         //Pindah-pindah page
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new eventUsr();
+                new tiketUsr();
                 dispose();
             }
         });
         
-        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new tiketUsr();
+                new vendorUsr();
                 dispose();
             }
         });
@@ -55,6 +55,7 @@ public class vendorUsr extends javax.swing.JFrame {
                 dispose();
             }
         });
+
         
         // Ambil ukuran layar user (monitor)
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -67,7 +68,6 @@ public class vendorUsr extends javax.swing.JFrame {
         int y = 0; // 0 berarti mepet ke atas
 
         // Set lokasi frame
-        this.setTable("");
         this.setLocation(x, y);
     }
 
@@ -108,10 +108,9 @@ public class vendorUsr extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        vendorTable = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
 
         jLabel11.setText("jLabel11");
 
@@ -121,18 +120,19 @@ public class vendorUsr extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
         jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
 
+        jPanel3.setBackground(new java.awt.Color(248, 102, 102));
         jPanel3.setPreferredSize(new java.awt.Dimension(196, 81));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/calender_hitam.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/calender_putih.png"))); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(27, 42, 79));
         jLabel2.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel2.setForeground(new java.awt.Color(242, 242, 242));
         jLabel2.setText("[EVENT]");
 
         jLabel3.setBackground(new java.awt.Color(27, 42, 79));
         jLabel3.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel3.setForeground(new java.awt.Color(242, 242, 242));
         jLabel3.setText("See Event List");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -163,20 +163,18 @@ public class vendorUsr extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(248, 102, 102));
-        jPanel2.setForeground(new java.awt.Color(242, 242, 242));
         jPanel2.setPreferredSize(new java.awt.Dimension(196, 81));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_putih.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_hitam.png"))); // NOI18N
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel4.setForeground(new java.awt.Color(27, 42, 79));
         jLabel4.setText("[VENDOR]");
 
         jLabel5.setBackground(new java.awt.Color(27, 42, 79));
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(242, 242, 242));
+        jLabel5.setForeground(new java.awt.Color(27, 42, 79));
         jLabel5.setText("See Vendor List");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -415,9 +413,9 @@ public class vendorUsr extends javax.swing.JFrame {
         jLabel17.setBackground(new java.awt.Color(27, 42, 79));
         jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel17.setText("VENDOR DATA LIST");
+        jLabel17.setText("EVENT DATA LIST");
 
-        vendorTable.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -425,24 +423,17 @@ public class vendorUsr extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Vendor ID", "Nama Vendor", "Service Type", "Contact Person", "Contact Number"
+                "Event ID", "Event Name", "Location", "Date", "Description"
             }
         ));
-        jScrollPane1.setViewportView(vendorTable);
-        if (vendorTable.getColumnModel().getColumnCount() > 0) {
-            vendorTable.getColumnModel().getColumn(3).setResizable(false);
-        }
+        jScrollPane1.setViewportView(jTable1);
 
         jLabel21.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel21.setText("TOTAL VENDOR :");
+        jLabel21.setText("TOTAL EVENT : 0");
 
         jLabel22.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(27, 42, 79));
-
-        total.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        total.setForeground(new java.awt.Color(27, 42, 79));
-        total.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -457,10 +448,7 @@ public class vendorUsr extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(jLabel22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(total)))
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -472,9 +460,7 @@ public class vendorUsr extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(total))
+                .addComponent(jLabel21)
                 .addGap(107, 107, 107)
                 .addComponent(jLabel22)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -512,40 +498,41 @@ public class vendorUsr extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new vendorUsr().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new eventUsr().setVisible(true));
     }
     
-    public void setTable(String search){
-        // TODO add your handling code here:
-        Object header[] = {"vendorID", "namaVendor", "serviceType", "contactPerson", "contactNumber"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        
-       // set model table
-        vendorTable.setModel(data);
-        
-       //qry
-       String tampil = "SELECT * FROM vendor WHERE vendor_name LIKE '%"+ search +"%'";
-       
-        try {
-            Statement st = kon.con.createStatement();
-            ResultSet rs = st.executeQuery(tampil);
-            
-            // menampilkan data
-            while (rs.next()){
-                String kolom1 = rs.getString(1);
-                String kolom2 = rs.getString(2);
-                String kolom3 = rs.getString(3);
-                String kolom4 = rs.getString(4);
-                String kolom5 = rs.getString(5);
-                String kolom[] = {kolom1, kolom2, kolom3, kolom4, kolom5};
-                data.addRow(kolom);
+    private void loadEventData() {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        String sql = "SELECT event_id, event_name, location, event_date, description, status FROM event";
+        try (java.sql.Connection con = new Koneksi().con;
+             java.sql.Statement st = con.createStatement();
+             java.sql.ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("event_id"),
+                    rs.getString("event_name"),
+                    rs.getString("location"),
+                    rs.getString("event_date"),
+                    rs.getString("description"),
+                    rs.getString("status")
+                });
             }
-            
-            int jumlah = vendorTable.getRowCount();
-            total.setText(String.valueOf(jumlah));
-            
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());          
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load data: " + e.getMessage());
+        }
+    }
+    
+    private void updateQuickInfo() {
+        String sql = "SELECT COUNT(*) FROM event";
+        try (java.sql.Connection con = new Koneksi().con;
+             java.sql.Statement st = con.createStatement();
+             java.sql.ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) {
+                jLabel21.setText("Total Events: " + rs.getInt(1));
+            }
+        } catch (java.sql.SQLException e) {
+            jLabel21.setText("Total Events: -");
         }
     }
 
@@ -580,7 +567,6 @@ public class vendorUsr extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel total;
-    private javax.swing.JTable vendorTable;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

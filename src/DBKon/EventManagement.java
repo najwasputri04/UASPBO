@@ -19,6 +19,36 @@ public class EventManagement extends javax.swing.JFrame {
         initComponents();
         loadEventData();
         updateQuickInfo();
+        this.setVisible(true);
+        
+        //Pindah-pindah page
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiket();
+                dispose();
+            }
+        });
+        
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendor();
+                dispose();
+            }
+        });
+        
+        jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new GuestStarManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new BuyerManagement();
+                dispose();
+            }
+        });
         
         // Tombol ADD
     jPanel9.addMouseListener(new java.awt.event.MouseAdapter() {

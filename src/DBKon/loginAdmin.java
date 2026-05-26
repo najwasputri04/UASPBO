@@ -142,7 +142,7 @@ public class loginAdmin extends javax.swing.JFrame {
         
         try{
             //Query login
-            String queryLogin = "select * from accounts where username=? and password=?";
+            String queryLogin = "select * from admin where username=? and password=?";
             
             //PreparedStatement
             PreparedStatement ps = kon.con.prepareStatement(queryLogin);
@@ -157,8 +157,12 @@ public class loginAdmin extends javax.swing.JFrame {
             //Cek login
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Login berhasil");
-                tiket form_tiket = new tiket();
-                form_tiket.show();
+                
+                EventManagement em = new EventManagement();
+                em.setVisible(true);
+                em.toFront();
+                
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Username atau Password salah");
             }

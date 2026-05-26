@@ -26,6 +26,37 @@ public class buyerUsr extends javax.swing.JFrame {
     public buyerUsr() {
         initComponents();
         kon = new Koneksi();
+        this.setVisible(true);
+        
+        //Pindah-pindah page
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new eventUsr();
+                dispose();
+            }
+        });
+        
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new vendorUsr();
+                dispose();
+            }
+        });
+        
+        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new guestStarUsr();
+                dispose();
+            }
+        });
+        
+        jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new tiketUsr();
+                dispose();
+            }
+        });
+        
         tableBuyer.setRowSelectionAllowed(true);
         tableBuyer.setSelectionMode(
             javax.swing.ListSelectionModel.SINGLE_SELECTION
@@ -132,9 +163,8 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
         jLabel17 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableBuyer = new javax.swing.JTable();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
         lblCountAttendees = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         jLabel11.setText("jLabel11");
 
@@ -452,16 +482,12 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
         ));
         jScrollPane1.setViewportView(tableBuyer);
 
-        jLabel21.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel21.setText("REGISTERED ATTENDEES :");
+        lblCountAttendees.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        lblCountAttendees.setForeground(new java.awt.Color(27, 42, 79));
+        lblCountAttendees.setText("Registered Attendees:");
 
         jLabel22.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(27, 42, 79));
-
-        lblCountAttendees.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        lblCountAttendees.setForeground(new java.awt.Color(27, 42, 79));
-        lblCountAttendees.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -476,10 +502,7 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(jLabel22))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCountAttendees)))
+                    .addComponent(lblCountAttendees, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -491,9 +514,7 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(lblCountAttendees))
+                .addComponent(lblCountAttendees)
                 .addGap(107, 107, 107)
                 .addComponent(jLabel22)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -549,7 +570,6 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
