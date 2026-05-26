@@ -192,7 +192,7 @@ public class addGuestStar extends javax.swing.JFrame {
         int pembayaran = Integer.parseInt(fee.getText());
         
         String query_tambah = "INSERT INTO guest_star (talent_name, genre, contact_person, fee, rider_info) " +
-                              "VALUES ('" + nama + "', '" + genreMusik + "', '" + contactperson + "', '" + pembayaran + "', '" + riderInfo + "')";
+                      "VALUES ('" + nama + "', '" + genreMusik + "', '" + contactperson + "', '" + pembayaran + "', '" + riderInfo + "')";
         
         try {
             Statement st = kon.con.createStatement();

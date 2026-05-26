@@ -73,15 +73,6 @@ public class GuestStarManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel5 = new javax.swing.JPanel();
-        editGuestStar = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        deleteGuestStar = new javax.swing.JLabel();
-        GuestStarSearch = new javax.swing.JTextField();
-        btn_search = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        GuestStarTable = new javax.swing.JTable();
-        jLabel17 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         eventPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -103,97 +94,21 @@ public class GuestStarManagement extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        total = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         addGuestStar = new javax.swing.JLabel();
-        totalGuestStar = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        editGuestStar = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        deleteGuestStar = new javax.swing.JLabel();
+        vendorSearch = new javax.swing.JTextField();
+        btn_search = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        GuestStarTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 600));
-
-        jPanel5.setBackground(new java.awt.Color(27, 42, 79));
-        jPanel5.setPreferredSize(new java.awt.Dimension(164, 29));
-
-        editGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        editGuestStar.setForeground(new java.awt.Color(255, 255, 255));
-        editGuestStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
-        editGuestStar.setText("EDIT SELECTED");
-        editGuestStar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editGuestStarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(editGuestStar)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editGuestStar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-        );
-
-        jPanel6.setBackground(new java.awt.Color(255, 51, 51));
-        jPanel6.setPreferredSize(new java.awt.Dimension(164, 29));
-
-        deleteGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        deleteGuestStar.setForeground(new java.awt.Color(255, 255, 255));
-        deleteGuestStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
-        deleteGuestStar.setText("DELETE SELECTED");
-        deleteGuestStar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteGuestStarMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(deleteGuestStar)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(deleteGuestStar)
-                .addGap(0, 4, Short.MAX_VALUE))
-        );
-
-        GuestStarSearch.setPreferredSize(new java.awt.Dimension(313, 34));
-        GuestStarSearch.addActionListener(this::GuestStarSearchActionPerformed);
-
-        btn_search.setBackground(new java.awt.Color(27, 42, 79));
-        btn_search.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btn_search.setForeground(new java.awt.Color(255, 255, 255));
-        btn_search.setText("SEARCH");
-        btn_search.setPreferredSize(new java.awt.Dimension(77, 34));
-        btn_search.addActionListener(this::btn_searchActionPerformed);
-
-        GuestStarTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Talent ID", "Talent Name", "Genre", "contactPerson", "Fee (IDR)", "Rider Info"
-            }
-        ));
-        jScrollPane1.setViewportView(GuestStarTable);
-
-        jLabel17.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel17.setText("GUEST STAR DATA MANAGEMENT");
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
         jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
@@ -434,8 +349,17 @@ public class GuestStarManagement extends javax.swing.JFrame {
                 .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addComponent(buyerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
+
+        jLabel17.setBackground(new java.awt.Color(27, 42, 79));
+        jLabel17.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(27, 42, 79));
+        jLabel17.setText("GUEST STAR DATA MANAGEMENT");
+
+        total.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        total.setForeground(new java.awt.Color(27, 42, 79));
+        total.setText("TOTAL VENDOR:");
 
         jPanel4.setBackground(new java.awt.Color(27, 42, 79));
         jPanel4.setPreferredSize(new java.awt.Dimension(164, 29));
@@ -457,7 +381,7 @@ public class GuestStarManagement extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addGuestStar)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,74 +390,140 @@ public class GuestStarManagement extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        totalGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
-        totalGuestStar.setForeground(new java.awt.Color(27, 42, 79));
-        totalGuestStar.setText("TOTAL GUEST STAR : ");
+        jPanel5.setBackground(new java.awt.Color(27, 42, 79));
+        jPanel5.setPreferredSize(new java.awt.Dimension(164, 29));
 
-        total.setFont(new java.awt.Font("Poppins SemiBold", 0, 12)); // NOI18N
-        total.setText("0");
+        editGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        editGuestStar.setForeground(new java.awt.Color(255, 255, 255));
+        editGuestStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/edit_putih.png"))); // NOI18N
+        editGuestStar.setText("EDIT SELECTED");
+        editGuestStar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editGuestStarMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(editGuestStar, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(editGuestStar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+        );
+
+        jPanel6.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel6.setPreferredSize(new java.awt.Dimension(164, 29));
+
+        deleteGuestStar.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
+        deleteGuestStar.setForeground(new java.awt.Color(255, 255, 255));
+        deleteGuestStar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/delete_putih.png"))); // NOI18N
+        deleteGuestStar.setText("DELETE SELECTED");
+        deleteGuestStar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteGuestStarMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(deleteGuestStar)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addComponent(deleteGuestStar))
+        );
+
+        vendorSearch.setPreferredSize(new java.awt.Dimension(313, 34));
+        vendorSearch.addActionListener(this::vendorSearchActionPerformed);
+
+        btn_search.setBackground(new java.awt.Color(27, 42, 79));
+        btn_search.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(255, 255, 255));
+        btn_search.setText("SEARCH");
+        btn_search.setPreferredSize(new java.awt.Dimension(77, 34));
+        btn_search.addActionListener(this::btn_searchActionPerformed);
+
+        GuestStarTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "namaGuestStar", "genreMusik", "contactPerson", "fee", "riderInfo"
+            }
+        ));
+        jScrollPane1.setViewportView(GuestStarTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(436, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(totalGuestStar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(total))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(GuestStarSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(808, Short.MAX_VALUE)))
+                        .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(total))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(83, 83, 83)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(GuestStarSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vendorSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalGuestStar)
-                    .addComponent(total))
-                .addContainerGap(177, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addGap(43, 43, 43)
+                .addComponent(total)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGuestStarMouseClicked
+        // TODO add your handling code here:
+        addGuestStar tambah = new addGuestStar();
+        tambah.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_addGuestStarMouseClicked
 
     private void editGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editGuestStarMouseClicked
         // TODO add your handling code here:
@@ -549,20 +539,13 @@ public class GuestStarManagement extends javax.swing.JFrame {
 
     }//GEN-LAST:event_deleteGuestStarMouseClicked
 
-    private void GuestStarSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuestStarSearchActionPerformed
+    private void vendorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_GuestStarSearchActionPerformed
+    }//GEN-LAST:event_vendorSearchActionPerformed
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
-        setTable(GuestStarSearch.getText());
+        setTable(vendorSearch.getText());
     }//GEN-LAST:event_btn_searchActionPerformed
-
-    private void addGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addGuestStarMouseClicked
-        // TODO add your handling code here:
-        addGuestStar tambah = new addGuestStar();
-        tambah.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_addGuestStarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -625,7 +608,6 @@ public class GuestStarManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField GuestStarSearch;
     private javax.swing.JTable GuestStarTable;
     private javax.swing.JLabel addGuestStar;
     private javax.swing.JButton btn_search;
@@ -657,7 +639,7 @@ public class GuestStarManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel ticketPanel;
     private javax.swing.JLabel total;
-    private javax.swing.JLabel totalGuestStar;
     private javax.swing.JPanel vendorPanel;
+    private javax.swing.JTextField vendorSearch;
     // End of variables declaration//GEN-END:variables
 }
