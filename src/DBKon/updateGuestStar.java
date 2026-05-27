@@ -179,10 +179,30 @@ public class updateGuestStar extends javax.swing.JFrame {
             return;
         }
 
+        if (nama.isEmpty() || fee.getText().isEmpty() || cp.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+           }
+            
+        if (namaTalent.getText().matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(null, "Nama tidak boleh mengandung angka!");
+            return;
+        }
+        
+        if (genreMusik.equals("Pilih Genre")) {
+            JOptionPane.showMessageDialog(null, "Pilih genre terlebih dahulu!");
+            return;
+           }
+        
+        if(cp.getText().matches(".*\\d.*")){
+            JOptionPane.showMessageDialog(rootPane, "Contact Person tidak boleh mengandung angka!");
+            return;
+        }
+        
         if (!fee.getText().matches("\\d+")) { 
             JOptionPane.showMessageDialog(null, "Fee harus berupa angka!");
             return;
-        }
+           }
         
         int pembayaran = Integer.parseInt(fee.getText());
         
@@ -195,6 +215,14 @@ public class updateGuestStar extends javax.swing.JFrame {
                         + "WHERE talent_id = '" + idGuest + "'";
         
         try {
+            Statement stCek = kon.con.createStatement();
+            ResultSet rs = stCek.executeQuery("SELECT * FROM guest_star WHERE talent_id = '" + idGuest + "'");
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "ID tidak ditemukan di database!");
+                return;
+            }
+    
             Statement st = kon.con.createStatement();
             st.executeUpdate(query_update);
 

@@ -2,6 +2,7 @@ package DBKon;
 
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -96,9 +97,18 @@ public class deleteGuestStar extends javax.swing.JFrame {
     private void btnHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseClicked
         // TODO add your handling code here:
         String id = hapus.getText();
-        
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "ID tidak boleh kosong!");
+    
+    if (id.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "ID tidak boleh kosong!");
+        return;
+    }
+    
+    try {
+        Statement stCek = kon.con.createStatement();
+        ResultSet rs = stCek.executeQuery("SELECT * FROM guest_star WHERE talent_id = '" + id + "'");
+
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "ID tidak ditemukan di database!");
             return;
         }
         
@@ -109,10 +119,9 @@ public class deleteGuestStar extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION
         );
         
-        if (jawab == JOptionPane.YES_OPTION){
-            String query_hapus = "DELETE FROM guest_star WHERE talent_id = " + id;
-        
-        try {
+        if (jawab == JOptionPane.YES_OPTION) {
+            String query_hapus = "DELETE FROM guest_star WHERE talent_id = '" + id + "'";
+            
             Statement st = kon.con.createStatement();
             st.executeUpdate(query_hapus);
             
@@ -121,10 +130,11 @@ public class deleteGuestStar extends javax.swing.JFrame {
             GuestStarManagement kembali = new GuestStarManagement();
             kembali.setVisible(true);
             this.dispose();
-            
-        } catch (Exception e) {
-            System.out.println("Error : " + e.getMessage());
-        }}
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+    }
     }//GEN-LAST:event_btnHapusMouseClicked
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed

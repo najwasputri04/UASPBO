@@ -179,10 +179,20 @@ public class addGuestStar extends javax.swing.JFrame {
             return;
            }
             
+        if (namaTalent.getText().matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(null, "Nama tidak boleh mengandung angka!");
+            return;
+        }
+        
         if (genreMusik.equals("Pilih Genre")) {
             JOptionPane.showMessageDialog(null, "Pilih genre terlebih dahulu!");
             return;
            }
+        
+        if(cp.getText().matches(".*\\d.*")){
+            JOptionPane.showMessageDialog(rootPane, "Contact Person tidak boleh mengandung angka!");
+            return;
+        }
         
         if (!fee.getText().matches("\\d+")) { 
             JOptionPane.showMessageDialog(null, "Fee harus berupa angka!");
