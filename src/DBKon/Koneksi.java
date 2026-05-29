@@ -32,6 +32,7 @@ public class Koneksi {
         } 
         catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         
         

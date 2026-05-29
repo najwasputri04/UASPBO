@@ -109,16 +109,30 @@ public class deleteVendor extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = hapus1.getText();
         
+        
+        try {
+        Statement cek = kon.con.createStatement();
+        java.sql.ResultSet rs = cek.executeQuery("SELECT * FROM vendor WHERE vendor_id = " + id);
+        
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "ID tidak ditemukan di database!");
+            return;
+        }
+    } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            return;
+        }
+        
         int jawab = JOptionPane.showConfirmDialog(
-            null,
-            "Yakin mau menghapus data?",
-            "Konfirmasi Hapus",
-            JOptionPane.YES_NO_OPTION
-        );
-        
-        if (jawab == JOptionPane.YES_OPTION){
-            String query_hapus = "DELETE FROM vendor WHERE vendor_id = " + id;
-        
+        null,
+        "Yakin mau menghapus data?",
+        "Konfirmasi Hapus",
+        JOptionPane.YES_NO_OPTION
+    );
+    
+    if (jawab == JOptionPane.YES_OPTION){
+        String query_hapus = "DELETE FROM vendor WHERE vendor_id = " + id;
+    
         try {
             Statement st = kon.con.createStatement();
             st.executeUpdate(query_hapus);
@@ -131,7 +145,8 @@ public class deleteVendor extends javax.swing.JFrame {
             
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
-        }}
+        }
+    }
     }//GEN-LAST:event_btnHapusMouseClicked
 
     /**
