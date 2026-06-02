@@ -1,208 +1,235 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package DBKon;
 
+/**
+ *
+ * @author acer
+ */
 public class addEvent extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(addEvent.class.getName());
 
+    /**
+     * Creates new form addEvent
+     */
     public addEvent() {
         initComponents();
-        setLocationRelativeTo(null); // tampil di tengah layar
-        setTitle("Add New Event");
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-
-        // ── Panel utama ──
-        mainPanel = new javax.swing.JPanel();
-        titleLabel = new javax.swing.JLabel();
         
-        // ── Labels ──
-        lblName     = new javax.swing.JLabel();
-        lblLocation = new javax.swing.JLabel();
-        lblDate     = new javax.swing.JLabel();
-        lblDesc     = new javax.swing.JLabel();
-        lblStatus   = new javax.swing.JLabel();
-
-        // ── Fields ──
-        txtName     = new javax.swing.JTextField();
-        txtLocation = new javax.swing.JTextField();
-        txtDate     = new javax.swing.JTextField();
-        txtDesc     = new javax.swing.JTextField();
-        cmbStatus   = new javax.swing.JComboBox<>();
-
-        // ── Buttons ──
-        btnSimpan = new javax.swing.JButton();
-        btnBatal  = new javax.swing.JButton();
-
-        // ── Window settings ──
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 450));
-        setResizable(false);
-
-        // ── Main panel ──
-        mainPanel.setBackground(new java.awt.Color(255, 255, 255));
-        mainPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
-        mainPanel.setLayout(new java.awt.GridBagLayout());
-        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gbc.insets = new java.awt.Insets(8, 5, 8, 5);
-
-        // ── Title ──
-        titleLabel.setText("ADD NEW EVENT");
-        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        titleLabel.setForeground(new java.awt.Color(27, 46, 76));
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.insets = new java.awt.Insets(0, 5, 20, 5);
-        mainPanel.add(titleLabel, gbc);
-        gbc.gridwidth = 1;
-        gbc.insets = new java.awt.Insets(8, 5, 8, 5);
-
-        // ── Event Name ──
-        lblName.setText("Event Name");
-        lblName.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblName.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.3;
-        mainPanel.add(lblName, gbc);
-        txtName.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtName.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtName.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 0.7;
-        mainPanel.add(txtName, gbc);
-
-        // ── Location ──
-        lblLocation.setText("Location");
-        lblLocation.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblLocation.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0.3;
-        mainPanel.add(lblLocation, gbc);
-        txtLocation.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtLocation.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtLocation.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 2; gbc.weightx = 0.7;
-        mainPanel.add(txtLocation, gbc);
-
-        // ── Date ──
-        lblDate.setText("Date (YYYY-MM-DD)");
-        lblDate.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblDate.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0.3;
-        mainPanel.add(lblDate, gbc);
-        txtDate.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtDate.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtDate.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 3; gbc.weightx = 0.7;
-        mainPanel.add(txtDate, gbc);
-
-        // ── Description ──
-        lblDesc.setText("Description");
-        lblDesc.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblDesc.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0.3;
-        mainPanel.add(lblDesc, gbc);
-        txtDesc.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtDesc.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtDesc.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 4; gbc.weightx = 0.7;
-        mainPanel.add(txtDesc, gbc);
-
-        // ── Status ──
-        lblStatus.setText("Status");
-        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblStatus.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0.3;
-        mainPanel.add(lblStatus, gbc);
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(
-            new String[]{"Upcoming", "Confirmed", "Ongoing", "Completed", "Cancelled"}));
-        cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        cmbStatus.setPreferredSize(new java.awt.Dimension(250, 35));
-        gbc.gridx = 1; gbc.gridy = 5; gbc.weightx = 0.7;
-        mainPanel.add(cmbStatus, gbc);
-
-        // ── Buttons panel ──
-        javax.swing.JPanel btnPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 0));
-        btnPanel.setBackground(java.awt.Color.WHITE);
-
-        btnSimpan.setText("SIMPAN");
-        btnSimpan.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        btnSimpan.setBackground(new java.awt.Color(27, 46, 76));
-        btnSimpan.setForeground(java.awt.Color.WHITE);
-        btnSimpan.setPreferredSize(new java.awt.Dimension(120, 38));
-        btnSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSimpan.setBorderPainted(false);
-        btnSimpan.setFocusPainted(false);
-        btnSimpan.addActionListener(evt -> btnSimpanActionPerformed(evt));
-
-        btnBatal.setText("BATAL");
-        btnBatal.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        btnBatal.setBackground(new java.awt.Color(255, 51, 51));
-        btnBatal.setForeground(java.awt.Color.WHITE);
-        btnBatal.setPreferredSize(new java.awt.Dimension(120, 38));
-        btnBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBatal.setBorderPainted(false);
-        btnBatal.setFocusPainted(false);
-        btnBatal.addActionListener(evt -> btnBatalActionPerformed(evt));
-
-        btnPanel.add(btnSimpan);
-        btnPanel.add(btnBatal);
-
-        gbc.gridx = 0; gbc.gridy = 6;
-        gbc.gridwidth = 2;
-        gbc.insets = new java.awt.Insets(20, 5, 0, 5);
-        mainPanel.add(btnPanel, gbc);
-
-        // ── Add to frame ──
-        getContentPane().add(mainPanel);
-        pack();
+        btnSave.addActionListener(e -> saveEvent());
+        
+        btnCancel.addActionListener(e -> dispose());
     }
-
-    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {
-        String name     = txtName.getText().trim();
+    
+    private void saveEvent(){
+        String name = txtName.getText().trim();
         String location = txtLocation.getText().trim();
-        String date     = txtDate.getText().trim();
-        String desc     = txtDesc.getText().trim();
-        String status   = cmbStatus.getSelectedItem().toString();
-
-        if (name.isEmpty() || location.isEmpty() || date.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Nama, Lokasi, dan Tanggal wajib diisi!", 
-                "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+        String date = txtDate.getText().trim();
+        String desc = txtDesc.getText().trim();
+        String status = cmbStatus.getSelectedItem().toString();
+        
+        //validasi input kosong
+        if(name.isEmpty() || location.isEmpty() || date.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Nama Event, Location, dan Date wajib diisi!");
             return;
         }
-
-        String sql = "INSERT INTO event (event_name, location, event_date, description, status) VALUES (?,?,?,?,?)";
+        
+        String sql ="INSERT INTO event (event_name, location, event_date, description, status)" + "VALUES(?, ? ,?, ?, ?)";
+        
         try (java.sql.Connection con = new Koneksi().con;
-             java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+            java.sql.PreparedStatement ps = con.prepareStatement(sql)){
+            
             ps.setString(1, name);
             ps.setString(2, location);
             ps.setString(3, date);
             ps.setString(4, desc);
             ps.setString(5, status);
             ps.executeUpdate();
-            javax.swing.JOptionPane.showMessageDialog(this, "Event berhasil ditambahkan!");
-            this.dispose();
+            
+            javax.swing.JOptionPane.showMessageDialog(this,
+            "Event berhasil ditambahkan!");
+            dispose();
         } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this,
+            "Gagal disimpan :" + e.getMessage());
         }
     }
 
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtLocation = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtDesc = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 54, 81));
+        jLabel1.setText("Form Tambah Event Baru");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Nama Event");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Location");
+
+        txtLocation.addActionListener(this::txtLocationActionPerformed);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Date (YYYY-MM-DD)");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Deskripsi");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Status");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Upcoming", "Confirmed", "Cancelled", "Done" }));
+        cmbStatus.addActionListener(this::cmbStatusActionPerformed);
+
+        btnSave.setBackground(new java.awt.Color(35, 54, 81));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(255, 255, 255));
+        btnSave.setText("Save");
+
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancel");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtName)
+                    .addComponent(txtLocation)
+                    .addComponent(txtDate)
+                    .addComponent(txtDesc)
+                    .addComponent(cmbStatus, 0, 134, Short.MAX_VALUE))
+                .addGap(92, 92, 92))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(btnSave)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnCancel)))
+                .addContainerGap(114, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbStatusActionPerformed
+
+    private void txtLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLocationActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new addEvent().setVisible(true));
     }
 
-    // Variables
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel lblName, lblLocation, lblDate, lblDesc, lblStatus;
-    private javax.swing.JTextField txtName, txtLocation, txtDate, txtDesc;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cmbStatus;
-    private javax.swing.JButton btnSimpan, btnBatal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtName;
+    // End of variables declaration//GEN-END:variables
 }
