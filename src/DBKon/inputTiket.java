@@ -201,6 +201,11 @@ public class inputTiket extends javax.swing.JFrame {
         String stock = totalStockTf.getText();
         String availableStock = availableStockTf.getText();
         
+        if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+        }
+        
         String query_tambah = "insert into ticket (event_id, category, price, total_stock, available_stock) values('"+eventID+"', '"+category+"', '"+price+"', '"+stock+"', + '"+availableStock+"')";
         
         try {

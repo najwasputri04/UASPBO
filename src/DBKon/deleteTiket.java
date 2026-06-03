@@ -109,6 +109,11 @@ public class deleteTiket extends javax.swing.JFrame {
         if(response==JOptionPane.YES_OPTION) {
            
             String id = ticketIDTf.getText();
+            
+            if (id.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Id harus diisi!");
+                return;
+            }
     
             String query_delete = "delete from ticket where ticket_id = '"+id+"'";
         

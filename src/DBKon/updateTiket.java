@@ -203,6 +203,11 @@ public class updateTiket extends javax.swing.JFrame {
         String stock = totalStockTf.getText();
         String availableStock = availableStockTf.getText();
         
+        if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+        }
+        
         String query_tambah = "update ticket set event_id = '"+eventID+"', category = '"+category+"', price = '"+price+"', total_stock = '"+stock+"', available_stock = '"+availableStock+"' where ticket_id = '"+ticketID+"'";
         
         try {
