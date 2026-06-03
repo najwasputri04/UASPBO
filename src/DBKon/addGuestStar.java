@@ -25,6 +25,7 @@ public class addGuestStar extends javax.swing.JFrame {
     public addGuestStar() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -51,6 +52,7 @@ public class addGuestStar extends javax.swing.JFrame {
         genre = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create Guest Star Data");
         setPreferredSize(new java.awt.Dimension(560, 525));
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N

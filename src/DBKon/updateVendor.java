@@ -23,6 +23,7 @@ public class updateVendor extends javax.swing.JFrame {
     public updateVendor() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -48,6 +49,7 @@ public class updateVendor extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Vendor Data");
 
         jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 51, 84));

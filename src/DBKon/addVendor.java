@@ -23,6 +23,7 @@ public class addVendor extends javax.swing.JFrame {
     public addVendor() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -46,6 +47,7 @@ public class addVendor extends javax.swing.JFrame {
         btnTambah = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create Vendor Data");
 
         jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 51, 84));

@@ -35,6 +35,7 @@ public class BuyerManagement extends javax.swing.JFrame {
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+        this.setLocationRelativeTo(null);
         
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -70,6 +71,14 @@ public class BuyerManagement extends javax.swing.JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 new BuyerManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        panelBtnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new BuyerCreate().setVisible(true);
                 dispose();
             }
         });
@@ -312,6 +321,7 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Buyer Management");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

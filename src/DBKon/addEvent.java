@@ -17,6 +17,7 @@ public class addEvent extends javax.swing.JFrame {
      */
     public addEvent() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         btnSave.addActionListener(e -> saveEvent());
         
@@ -82,6 +83,7 @@ public class addEvent extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Create Event Data");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 54, 81));

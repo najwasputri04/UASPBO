@@ -40,6 +40,7 @@ public class deleteTiket extends javax.swing.JFrame {
         delBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delete Ticket");
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
 

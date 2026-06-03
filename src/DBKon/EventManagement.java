@@ -19,6 +19,7 @@ public class EventManagement extends javax.swing.JFrame {
         initComponents();
         loadEventData();
         updateQuickInfo();
+        this.setLocationRelativeTo(null);
         
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -123,6 +124,7 @@ public class EventManagement extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Event Management");
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 625));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

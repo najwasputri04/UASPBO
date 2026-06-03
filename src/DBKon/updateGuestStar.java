@@ -24,6 +24,7 @@ public class updateGuestStar extends javax.swing.JFrame {
     public updateGuestStar() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -52,6 +53,7 @@ public class updateGuestStar extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Guest Star Data");
 
         rider.setColumns(20);
         rider.setRows(5);

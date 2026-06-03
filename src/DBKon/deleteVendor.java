@@ -22,6 +22,7 @@ public class deleteVendor extends javax.swing.JFrame {
     public deleteVendor() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -39,6 +40,7 @@ public class deleteVendor extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delete Vendor Data");
 
         jLabel1.setFont(new java.awt.Font("Poppins SemiBold", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 51, 84));

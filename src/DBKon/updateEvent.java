@@ -19,6 +19,7 @@ public class updateEvent extends javax.swing.JFrame {
     
     public updateEvent(int id, String name, String location, String date, String desc, String status) {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(
            new String[]{"Upcoming", "Confirmed", "Cancelled", "Done"}
@@ -96,6 +97,7 @@ public class updateEvent extends javax.swing.JFrame {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Event Data");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(35, 51, 84));

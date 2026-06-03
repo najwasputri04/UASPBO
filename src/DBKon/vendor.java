@@ -26,6 +26,7 @@ public class vendor extends javax.swing.JFrame {
     public vendor() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
 
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override

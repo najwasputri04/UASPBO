@@ -28,6 +28,7 @@ public class BuyerEdit extends javax.swing.JFrame {
 
         kon = new Koneksi();
         this.buyerId = buyerId;
+        this.setLocationRelativeTo(null);
 
         txtBuyerId.setEditable(false);
 
@@ -207,6 +208,7 @@ public class BuyerEdit extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Buyer Data");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(27, 46, 76));

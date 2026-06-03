@@ -25,6 +25,7 @@ public class GuestStarManagement extends javax.swing.JFrame {
     public GuestStarManagement() {
         initComponents();
         kon = new Koneksi();
+        this.setLocationRelativeTo(null);
         
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -124,6 +125,7 @@ public class GuestStarManagement extends javax.swing.JFrame {
         GuestStarTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Guest Star Management");
         setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));

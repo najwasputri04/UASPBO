@@ -51,6 +51,7 @@ public class updateTiket extends javax.swing.JFrame {
         editTicketBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Ticket Data");
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
 

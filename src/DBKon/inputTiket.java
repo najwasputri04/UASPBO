@@ -51,6 +51,7 @@ public class inputTiket extends javax.swing.JFrame {
         addTicketBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create Ticket Data");
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
 

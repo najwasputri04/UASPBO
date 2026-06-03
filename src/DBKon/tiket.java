@@ -54,6 +54,7 @@ public class tiket extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -159,7 +160,7 @@ public class tiket extends javax.swing.JFrame {
         jLabel11.setText("jLabel11");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("vendor");
+        setTitle("Ticket Management");
 
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
         jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
