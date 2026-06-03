@@ -623,6 +623,12 @@ public class tiket extends javax.swing.JFrame {
         model.setRowCount(0);
         try {
             String cariTiket = srcTf.getText();
+            
+            if (cariTiket.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Field pencarian tidak boleh kosong!");
+                return;
+            }
+            
             String showTable = "select * from ticket where ticket_id = '"+cariTiket+"'";
             ResultSet rs = kon.con.createStatement().executeQuery(showTable);
         
