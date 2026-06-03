@@ -184,27 +184,6 @@ public class BuyerCreate extends javax.swing.JFrame {
         jEventCB = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jTicketCB = new javax.swing.JComboBox<>();
-        jPanel10 = new javax.swing.JPanel();
-        eventPanel1 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        vendorPanel1 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        gsPanel1 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        ticketPanel1 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        buyerPanel1 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -258,250 +237,6 @@ public class BuyerCreate extends javax.swing.JFrame {
 
         jTicketCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jPanel10.setBackground(new java.awt.Color(27, 42, 79));
-        jPanel10.setPreferredSize(new java.awt.Dimension(239, 600));
-
-        eventPanel1.setPreferredSize(new java.awt.Dimension(196, 81));
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/calender_hitam.png"))); // NOI18N
-
-        jLabel24.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel24.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel24.setText("[EVENT]");
-
-        jLabel26.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel26.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel26.setText("Manage Event");
-
-        javax.swing.GroupLayout eventPanel1Layout = new javax.swing.GroupLayout(eventPanel1);
-        eventPanel1.setLayout(eventPanel1Layout);
-        eventPanel1Layout.setHorizontalGroup(
-            eventPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(eventPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel18)
-                .addGap(18, 18, 18)
-                .addGroup(eventPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel24))
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
-        eventPanel1Layout.setVerticalGroup(
-            eventPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(eventPanel1Layout.createSequentialGroup()
-                .addGroup(eventPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(eventPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel18))
-                    .addGroup(eventPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel26)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        vendorPanel1.setPreferredSize(new java.awt.Dimension(196, 81));
-
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_hitam.png"))); // NOI18N
-
-        jLabel28.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel28.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel28.setText("[VENDOR]");
-
-        jLabel29.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel29.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel29.setText("Manage Vendor");
-
-        javax.swing.GroupLayout vendorPanel1Layout = new javax.swing.GroupLayout(vendorPanel1);
-        vendorPanel1.setLayout(vendorPanel1Layout);
-        vendorPanel1Layout.setHorizontalGroup(
-            vendorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vendorPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(vendorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28)
-                    .addComponent(jLabel29))
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
-        vendorPanel1Layout.setVerticalGroup(
-            vendorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vendorPanel1Layout.createSequentialGroup()
-                .addGroup(vendorPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(vendorPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel27))
-                    .addGroup(vendorPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel29)))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        gsPanel1.setPreferredSize(new java.awt.Dimension(196, 81));
-
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/mic_hitam.png"))); // NOI18N
-
-        jLabel31.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel31.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel31.setText("[GUEST STAR]");
-
-        jLabel32.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel32.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel32.setText("Manage Guest");
-
-        javax.swing.GroupLayout gsPanel1Layout = new javax.swing.GroupLayout(gsPanel1);
-        gsPanel1.setLayout(gsPanel1Layout);
-        gsPanel1Layout.setHorizontalGroup(
-            gsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gsPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel30)
-                .addGap(18, 18, 18)
-                .addGroup(gsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel32)
-                    .addComponent(jLabel31))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-        gsPanel1Layout.setVerticalGroup(
-            gsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gsPanel1Layout.createSequentialGroup()
-                .addGroup(gsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(gsPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel30))
-                    .addGroup(gsPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel32)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        ticketPanel1.setPreferredSize(new java.awt.Dimension(196, 81));
-
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/ticket_hitam.png"))); // NOI18N
-
-        jLabel34.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel34.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel34.setText("[TICKETS]");
-
-        jLabel35.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel35.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(27, 42, 79));
-        jLabel35.setText("Manage Ticket");
-
-        javax.swing.GroupLayout ticketPanel1Layout = new javax.swing.GroupLayout(ticketPanel1);
-        ticketPanel1.setLayout(ticketPanel1Layout);
-        ticketPanel1Layout.setHorizontalGroup(
-            ticketPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ticketPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel33)
-                .addGap(18, 18, 18)
-                .addGroup(ticketPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel35)
-                    .addComponent(jLabel34))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        ticketPanel1Layout.setVerticalGroup(
-            ticketPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ticketPanel1Layout.createSequentialGroup()
-                .addGroup(ticketPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ticketPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel33))
-                    .addGroup(ticketPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel34)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel35)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        buyerPanel1.setBackground(new java.awt.Color(255, 102, 102));
-        buyerPanel1.setPreferredSize(new java.awt.Dimension(196, 81));
-
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/user_putih.png"))); // NOI18N
-
-        jLabel37.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel37.setFont(new java.awt.Font("Poppins", 1, 15)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel37.setText("[BUYER]");
-
-        jLabel38.setBackground(new java.awt.Color(27, 42, 79));
-        jLabel38.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel38.setText("Manage Buyer");
-
-        javax.swing.GroupLayout buyerPanel1Layout = new javax.swing.GroupLayout(buyerPanel1);
-        buyerPanel1.setLayout(buyerPanel1Layout);
-        buyerPanel1Layout.setHorizontalGroup(
-            buyerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buyerPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel36)
-                .addGap(18, 18, 18)
-                .addGroup(buyerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel38)
-                    .addComponent(jLabel37))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        buyerPanel1Layout.setVerticalGroup(
-            buyerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buyerPanel1Layout.createSequentialGroup()
-                .addGroup(buyerPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(buyerPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel36))
-                    .addGroup(buyerPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel38)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vendorPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eventPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ticketPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buyerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(eventPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(vendorPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(gsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(ticketPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(buyerPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(362, Short.MAX_VALUE))
-        );
-
         jButton1.setBackground(new java.awt.Color(27, 46, 76));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -513,8 +248,7 @@ public class BuyerCreate extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
@@ -535,13 +269,12 @@ public class BuyerCreate extends javax.swing.JFrame {
                             .addComponent(jLabel22)
                             .addComponent(jEventCB, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(374, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -571,7 +304,7 @@ public class BuyerCreate extends javax.swing.JFrame {
                 .addComponent(jNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(571, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -579,15 +312,16 @@ public class BuyerCreate extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 277, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -640,41 +374,20 @@ public class BuyerCreate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buyerPanel1;
-    private javax.swing.JPanel eventPanel1;
-    private javax.swing.JPanel gsPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField jEmailField;
     private javax.swing.JComboBox<String> jEventCB;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JTextField jNameField;
     private javax.swing.JTextField jNumberField;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JComboBox<String> jTicketCB;
-    private javax.swing.JPanel ticketPanel1;
-    private javax.swing.JPanel vendorPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -55,22 +55,37 @@ public class tiket extends javax.swing.JFrame {
         kon = new Koneksi();
         this.setVisible(true);
         
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel2 = vendorPanel
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                new EventManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 new vendor().setVisible(true);
                 dispose();
             }
         });
-        jPanel7.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel7 = gsPanel
+        gsPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 new GuestStarManagement().setVisible(true);
                 dispose();
             }
         });
-        // jPanel8 = ticketPanel, tidak perlu
-        jPanel9.addMouseListener(new java.awt.event.MouseAdapter() { // jPanel9 = buyerPanel
+        ticketPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                new tiket().setVisible(true);
+                dispose();
+            }
+        });
+        
+        buyerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 new BuyerManagement().setVisible(true);
@@ -106,23 +121,23 @@ public class tiket extends javax.swing.JFrame {
 
         jLabel11 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        eventPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        vendorPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        gsPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        ticketPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        buyerPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -149,7 +164,7 @@ public class tiket extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(27, 42, 79));
         jPanel1.setPreferredSize(new java.awt.Dimension(239, 600));
 
-        jPanel3.setPreferredSize(new java.awt.Dimension(196, 81));
+        eventPanel.setPreferredSize(new java.awt.Dimension(196, 81));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/calender_hitam.png"))); // NOI18N
 
@@ -163,35 +178,35 @@ public class tiket extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(27, 42, 79));
         jLabel3.setText("Manage Event");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout eventPanelLayout = new javax.swing.GroupLayout(eventPanel);
+        eventPanel.setLayout(eventPanelLayout);
+        eventPanelLayout.setHorizontalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        eventPanelLayout.setVerticalGroup(
+            eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eventPanelLayout.createSequentialGroup()
+                .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(eventPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(eventPanelLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(196, 81));
+        vendorPanel.setPreferredSize(new java.awt.Dimension(196, 81));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/localShipping_hitam.png"))); // NOI18N
 
@@ -205,35 +220,35 @@ public class tiket extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(27, 42, 79));
         jLabel5.setText("Manage Vendor");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout vendorPanelLayout = new javax.swing.GroupLayout(vendorPanel);
+        vendorPanel.setLayout(vendorPanelLayout);
+        vendorPanelLayout.setHorizontalGroup(
+            vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vendorPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        vendorPanelLayout.setVerticalGroup(
+            vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vendorPanelLayout.createSequentialGroup()
+                .addGroup(vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(vendorPanelLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(vendorPanelLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(196, 81));
+        gsPanel.setPreferredSize(new java.awt.Dimension(196, 81));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/mic_hitam.png"))); // NOI18N
 
@@ -247,36 +262,36 @@ public class tiket extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(27, 42, 79));
         jLabel9.setText("Manage Guest");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout gsPanelLayout = new javax.swing.GroupLayout(gsPanel);
+        gsPanel.setLayout(gsPanelLayout);
+        gsPanelLayout.setHorizontalGroup(
+            gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gsPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+        gsPanelLayout.setVerticalGroup(
+            gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gsPanelLayout.createSequentialGroup()
+                .addGroup(gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(gsPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel7))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(gsPanelLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel8.setBackground(new java.awt.Color(248, 102, 102));
-        jPanel8.setPreferredSize(new java.awt.Dimension(196, 81));
+        ticketPanel.setBackground(new java.awt.Color(248, 102, 102));
+        ticketPanel.setPreferredSize(new java.awt.Dimension(196, 81));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/ticket_putih.png"))); // NOI18N
 
@@ -290,35 +305,35 @@ public class tiket extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(242, 242, 242));
         jLabel13.setText("Manage Ticket");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout ticketPanelLayout = new javax.swing.GroupLayout(ticketPanel);
+        ticketPanel.setLayout(ticketPanelLayout);
+        ticketPanelLayout.setHorizontalGroup(
+            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel12))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+        ticketPanelLayout.setVerticalGroup(
+            ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ticketPanelLayout.createSequentialGroup()
+                .addGroup(ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ticketPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel10))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGroup(ticketPanelLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel9.setPreferredSize(new java.awt.Dimension(196, 81));
+        buyerPanel.setPreferredSize(new java.awt.Dimension(196, 81));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/DBKon/img/user_hitam.png"))); // NOI18N
 
@@ -332,32 +347,32 @@ public class tiket extends javax.swing.JFrame {
         jLabel16.setForeground(new java.awt.Color(27, 42, 79));
         jLabel16.setText("Manage Buyer");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        javax.swing.GroupLayout buyerPanelLayout = new javax.swing.GroupLayout(buyerPanel);
+        buyerPanel.setLayout(buyerPanelLayout);
+        buyerPanelLayout.setHorizontalGroup(
+            buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buyerPanelLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+        buyerPanelLayout.setVerticalGroup(
+            buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buyerPanelLayout.createSequentialGroup()
+                .addGroup(buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buyerPanelLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel14))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
+                    .addGroup(buyerPanelLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -367,26 +382,26 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(vendorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buyerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eventPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vendorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(gsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ticketPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buyerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(144, Short.MAX_VALUE))
         );
 
@@ -415,7 +430,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addNewTicketCategory)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,7 +459,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(editTicketBtn)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +488,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(delTicketBtn)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,8 +667,11 @@ public class tiket extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addNewTicketCategory;
+    private javax.swing.JPanel buyerPanel;
     private javax.swing.JLabel delTicketBtn;
     private javax.swing.JLabel editTicketBtn;
+    private javax.swing.JPanel eventPanel;
+    private javax.swing.JPanel gsPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -674,18 +692,15 @@ public class tiket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton srcBtn;
     private javax.swing.JTextField srcTf;
+    private javax.swing.JPanel ticketPanel;
     private javax.swing.JTable ticketTable;
     private javax.swing.JLabel totalTicket;
+    private javax.swing.JPanel vendorPanel;
     // End of variables declaration//GEN-END:variables
 }

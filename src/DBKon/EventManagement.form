@@ -40,7 +40,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" alignment="0" pref="724" max="32767" attributes="0"/>
+          <Component id="jPanel2" alignment="0" pref="734" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="jPanel1" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="121" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,11 +83,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jPanel3" pref="223" max="32767" attributes="0"/>
-                      <Component id="jPanel5" alignment="0" pref="223" max="32767" attributes="0"/>
-                      <Component id="jPanel4" alignment="0" pref="223" max="32767" attributes="0"/>
-                      <Component id="jPanel6" alignment="0" pref="223" max="32767" attributes="0"/>
-                      <Component id="jPanel7" alignment="0" pref="223" max="32767" attributes="0"/>
+                      <Component id="eventPanel" pref="223" max="32767" attributes="0"/>
+                      <Component id="gsPanel" alignment="0" pref="223" max="32767" attributes="0"/>
+                      <Component id="vendorPanel" alignment="0" pref="223" max="32767" attributes="0"/>
+                      <Component id="ticketPanel" alignment="0" pref="223" max="32767" attributes="0"/>
+                      <Component id="buyerPanel" alignment="0" pref="223" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
@@ -97,22 +97,22 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jPanel3" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="eventPanel" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel4" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="vendorPanel" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel5" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="gsPanel" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel6" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="ticketPanel" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel7" min="-2" pref="80" max="-2" attributes="0"/>
+                  <Component id="buyerPanel" min="-2" pref="80" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel3">
+        <Container class="javax.swing.JPanel" name="eventPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="34" green="33" red="ff" type="rgb"/>
@@ -180,13 +180,13 @@
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/calendar.png"/>
+                  <Image iconType="3" name="/DBKon/img/calender_putih.png"/>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel4">
+        <Container class="javax.swing.JPanel" name="vendorPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
@@ -251,13 +251,13 @@
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/local_shipping.png"/>
+                  <Image iconType="3" name="/DBKon/img/localShipping_hitam.png"/>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel5">
+        <Container class="javax.swing.JPanel" name="gsPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
@@ -275,7 +275,7 @@
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -322,13 +322,13 @@
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/mic.png"/>
+                  <Image iconType="3" name="/DBKon/img/mic_hitam.png"/>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel6">
+        <Container class="javax.swing.JPanel" name="ticketPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
@@ -393,13 +393,13 @@
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/local_activity.png"/>
+                  <Image iconType="3" name="/DBKon/img/ticket_hitam.png"/>
                 </Property>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel7">
+        <Container class="javax.swing.JPanel" name="buyerPanel">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[300, 100]"/>
@@ -464,7 +464,7 @@
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/person_white.png"/>
+                  <Image iconType="3" name="/DBKon/img/user_hitam.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -571,7 +571,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/add.png"/>
+                  <Image iconType="3" name="/DBKon/img/add_putih.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ADD NEW EVENT"/>
               </Properties>
@@ -591,7 +591,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -615,7 +615,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/edit.png"/>
+                  <Image iconType="3" name="/DBKon/img/edit_putih.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="EDIT SELECTED"/>
               </Properties>
@@ -635,7 +635,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -659,7 +659,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/DBKon/img/delete.png"/>
+                  <Image iconType="3" name="/DBKon/img/delete_putih.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="DELETE SELECTED"/>
               </Properties>

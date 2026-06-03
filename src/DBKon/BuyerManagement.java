@@ -36,6 +36,14 @@ public class BuyerManagement extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
         
+        eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                new EventManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
         vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -58,10 +66,10 @@ public class BuyerManagement extends javax.swing.JFrame {
             }
         });
         
-        label21.addMouseListener(new java.awt.event.MouseAdapter() {
+        buyerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                new BuyerCreate().setVisible(true);
+                new BuyerManagement().setVisible(true);
                 dispose();
             }
         });

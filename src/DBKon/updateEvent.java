@@ -1,201 +1,245 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package DBKon;
 
+/**
+ *
+ * @author acer
+ */
 public class updateEvent extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(updateEvent.class.getName());
 
-    private int eventId;
-
+     private int eventId;
+    /**
+     * Creates new form updateEvent
+     */
+    
     public updateEvent(int id, String name, String location, String date, String desc, String status) {
         initComponents();
-        setLocationRelativeTo(null);
-        setTitle("Edit Event");
+        
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(
+           new String[]{"Upcoming", "Confirmed", "Cancelled", "Done"}
+        ));
+        
         this.eventId = id;
         txtName.setText(name);
         txtLocation.setText(location);
         txtDate.setText(date);
         txtDesc.setText(desc);
         cmbStatus.setSelectedItem(status);
+        
+        btnUpdate.addActionListener(e -> updateEvent());
+        btnCancel.addActionListener(e -> dispose());
     }
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
-
-        mainPanel   = new javax.swing.JPanel();
-        titleLabel  = new javax.swing.JLabel();
-        lblName     = new javax.swing.JLabel();
-        lblLocation = new javax.swing.JLabel();
-        lblDate     = new javax.swing.JLabel();
-        lblDesc     = new javax.swing.JLabel();
-        lblStatus   = new javax.swing.JLabel();
-        txtName     = new javax.swing.JTextField();
-        txtLocation = new javax.swing.JTextField();
-        txtDate     = new javax.swing.JTextField();
-        txtDesc     = new javax.swing.JTextField();
-        cmbStatus   = new javax.swing.JComboBox<>();
-        btnSimpan   = new javax.swing.JButton();
-        btnBatal    = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 450));
-        setResizable(false);
-
-        mainPanel.setBackground(new java.awt.Color(255, 255, 255));
-        mainPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 30, 20, 30));
-        mainPanel.setLayout(new java.awt.GridBagLayout());
-        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gbc.insets = new java.awt.Insets(8, 5, 8, 5);
-
-        // ── Title ──
-        titleLabel.setText("EDIT EVENT");
-        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        titleLabel.setForeground(new java.awt.Color(27, 46, 76));
-        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
-        gbc.insets = new java.awt.Insets(0, 5, 20, 5);
-        mainPanel.add(titleLabel, gbc);
-        gbc.gridwidth = 1;
-        gbc.insets = new java.awt.Insets(8, 5, 8, 5);
-
-        // ── Fields (sama persis seperti addEvent) ──
-        lblName.setText("Event Name");
-        lblName.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblName.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.3;
-        mainPanel.add(lblName, gbc);
-        txtName.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtName.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtName.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 1; gbc.weightx = 0.7;
-        mainPanel.add(txtName, gbc);
-
-        lblLocation.setText("Location");
-        lblLocation.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblLocation.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 2; gbc.weightx = 0.3;
-        mainPanel.add(lblLocation, gbc);
-        txtLocation.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtLocation.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtLocation.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 2; gbc.weightx = 0.7;
-        mainPanel.add(txtLocation, gbc);
-
-        lblDate.setText("Date (YYYY-MM-DD)");
-        lblDate.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblDate.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0.3;
-        mainPanel.add(lblDate, gbc);
-        txtDate.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtDate.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtDate.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 3; gbc.weightx = 0.7;
-        mainPanel.add(txtDate, gbc);
-
-        lblDesc.setText("Description");
-        lblDesc.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblDesc.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0.3;
-        mainPanel.add(lblDesc, gbc);
-        txtDesc.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        txtDesc.setPreferredSize(new java.awt.Dimension(250, 35));
-        txtDesc.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200)),
-            javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10)));
-        gbc.gridx = 1; gbc.gridy = 4; gbc.weightx = 0.7;
-        mainPanel.add(txtDesc, gbc);
-
-        lblStatus.setText("Status");
-        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        lblStatus.setForeground(new java.awt.Color(27, 46, 76));
-        gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0.3;
-        mainPanel.add(lblStatus, gbc);
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(
-            new String[]{"Upcoming", "Confirmed", "Ongoing", "Completed", "Cancelled"}));
-        cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 13));
-        cmbStatus.setPreferredSize(new java.awt.Dimension(250, 35));
-        gbc.gridx = 1; gbc.gridy = 5; gbc.weightx = 0.7;
-        mainPanel.add(cmbStatus, gbc);
-
-        // ── Buttons ──
-        javax.swing.JPanel btnPanel = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 0));
-        btnPanel.setBackground(java.awt.Color.WHITE);
-
-        btnSimpan.setText("UPDATE");
-        btnSimpan.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        btnSimpan.setBackground(new java.awt.Color(27, 46, 76));
-        btnSimpan.setForeground(java.awt.Color.WHITE);
-        btnSimpan.setPreferredSize(new java.awt.Dimension(120, 38));
-        btnSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSimpan.setBorderPainted(false);
-        btnSimpan.setFocusPainted(false);
-        btnSimpan.addActionListener(evt -> btnSimpanActionPerformed(evt));
-
-        btnBatal.setText("BATAL");
-        btnBatal.setFont(new java.awt.Font("Segoe UI", 1, 13));
-        btnBatal.setBackground(new java.awt.Color(255, 51, 51));
-        btnBatal.setForeground(java.awt.Color.WHITE);
-        btnBatal.setPreferredSize(new java.awt.Dimension(120, 38));
-        btnBatal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBatal.setBorderPainted(false);
-        btnBatal.setFocusPainted(false);
-        btnBatal.addActionListener(evt -> btnBatalActionPerformed(evt));
-
-        btnPanel.add(btnSimpan);
-        btnPanel.add(btnBatal);
-
-        gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
-        gbc.insets = new java.awt.Insets(20, 5, 0, 5);
-        mainPanel.add(btnPanel, gbc);
-
-        getContentPane().add(mainPanel);
-        pack();
-    }
-
-    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {
+    
+    private void updateEvent() {
         String name     = txtName.getText().trim();
         String location = txtLocation.getText().trim();
         String date     = txtDate.getText().trim();
         String desc     = txtDesc.getText().trim();
         String status   = cmbStatus.getSelectedItem().toString();
 
+        // Validasi
         if (name.isEmpty() || location.isEmpty() || date.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this,
-                "Nama, Lokasi, dan Tanggal wajib diisi!",
-                "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                "Nama Event, Location, dan Date wajib diisi!");
             return;
         }
 
-        String sql = "UPDATE event SET event_name=?, location=?, event_date=?, description=?, status=? WHERE event_id=?";
+        String sql = "UPDATE event SET event_name=?, location=?, event_date=?, description=?, status=? "
+                   + "WHERE event_id=?";
+
         try (java.sql.Connection con = new Koneksi().con;
              java.sql.PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setString(1, name);
             ps.setString(2, location);
             ps.setString(3, date);
             ps.setString(4, desc);
             ps.setString(5, status);
-            ps.setInt(6, eventId);
+            ps.setInt(6, eventId); // WHERE event_id = ?
+
             ps.executeUpdate();
             javax.swing.JOptionPane.showMessageDialog(this, "Event berhasil diupdate!");
-            this.dispose();
+            dispose();
+
         } catch (java.sql.SQLException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal update: " + e.getMessage());
         }
     }
 
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {
-        this.dispose();
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtLocation = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtDesc = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
+        btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(35, 51, 84));
+        jLabel1.setText("Form Edit Event");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Nama Event");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Location");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Date (YYYY-MM-DD)");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Deskripsi");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Status");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnUpdate.setBackground(new java.awt.Color(35, 51, 84));
+        btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(this::btnUpdateActionPerformed);
+
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("CANCEL");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(76, 76, 76)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtName)
+                            .addComponent(txtLocation)
+                            .addComponent(txtDate)
+                            .addComponent(txtDesc)
+                            .addComponent(cmbStatus, 0, 109, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(btnUpdate)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnCancel)))
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel4)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel5)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        // ✅ fix
+        java.awt.EventQueue.invokeLater(() -> new updateEvent(0, "", "", "", "", "").setVisible(true));
     }
 
-    // Variables
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel lblName, lblLocation, lblDate, lblDesc, lblStatus;
-    private javax.swing.JTextField txtName, txtLocation, txtDate, txtDesc;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbStatus;
-    private javax.swing.JButton btnSimpan, btnBatal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtDesc;
+    private javax.swing.JTextField txtLocation;
+    private javax.swing.JTextField txtName;
+    // End of variables declaration//GEN-END:variables
 }
