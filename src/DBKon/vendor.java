@@ -29,9 +29,16 @@ public class vendor extends javax.swing.JFrame {
 
         eventPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
+            public void mouseClicked(java.awt.event.MouseEvent e){
+                new EventManagement().setVisible(true);
+                dispose();
+            }
+        });
+        
+        vendorPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                EventManagement event = new EventManagement();
-                event.setVisible(true);
+                new vendor().setVisible(true);
                 dispose();
             }
         });
@@ -49,6 +56,7 @@ public class vendor extends javax.swing.JFrame {
                 dispose();
             }
         });
+        
         buyerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
