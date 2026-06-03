@@ -21,6 +21,12 @@ public class updateEvent extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+          btnUpdate.setContentAreaFilled(false);
+            btnUpdate.setOpaque(true);
+
+            btnCancel.setContentAreaFilled(false);
+            btnCancel.setOpaque(true);
+        
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(
            new String[]{"Upcoming", "Confirmed", "Cancelled", "Done"}
         ));
