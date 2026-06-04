@@ -67,6 +67,7 @@ public class guestStarUsr extends javax.swing.JFrame {
         int y = 0; // 0 berarti mepet ke atas
 
         // Set lokasi frame
+        this.setTable("");
         this.setLocation(x, y);
     }
 
