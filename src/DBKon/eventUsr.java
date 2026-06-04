@@ -26,6 +26,7 @@ public class eventUsr extends javax.swing.JFrame {
         loadEventData();
         updateQuickInfo();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         
         //Pindah-pindah page
         jPanel8.addMouseListener(new java.awt.event.MouseAdapter() {

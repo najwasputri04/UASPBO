@@ -26,6 +26,7 @@ public class vendorUsr extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
         //Pindah-pindah page
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {

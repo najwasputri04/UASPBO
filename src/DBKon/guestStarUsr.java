@@ -26,6 +26,7 @@ public class guestStarUsr extends javax.swing.JFrame {
         initComponents();
         kon = new Koneksi();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
         //Pindah-pindah page
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -519,7 +520,7 @@ public class guestStarUsr extends javax.swing.JFrame {
         GuestStarTable.setModel(data);
         
        //qry
-       String tampil = "SELECT * FROM guest_star WHERE talent_name LIKE '%"+ search +"%'";
+       String tampil = "SELECT * FROM guest_star";
        
         try {
             Statement st = kon.con.createStatement();
