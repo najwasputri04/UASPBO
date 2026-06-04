@@ -520,7 +520,7 @@ public class guestStarUsr extends javax.swing.JFrame {
         GuestStarTable.setModel(data);
         
        //qry
-       String tampil = "SELECT * FROM guest_star";
+       String tampil = "SELECT * FROM guest_star WHERE talent_name LIKE '%"+ search +"%'";
        
         try {
             Statement st = kon.con.createStatement();
