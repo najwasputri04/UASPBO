@@ -24,6 +24,8 @@ public class GuestStarManagement extends javax.swing.JFrame {
      */
     public GuestStarManagement() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
         

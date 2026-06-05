@@ -52,6 +52,8 @@ public class tiketUsr extends javax.swing.JFrame {
     
     public tiketUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
         

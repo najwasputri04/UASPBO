@@ -24,6 +24,8 @@ public class BuyerManagement extends javax.swing.JFrame {
      */
     public BuyerManagement() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         tableBuyer.setRowSelectionAllowed(true);
         tableBuyer.setSelectionMode(
             javax.swing.ListSelectionModel.SINGLE_SELECTION

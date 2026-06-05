@@ -21,6 +21,8 @@ public class inputTiket extends javax.swing.JFrame {
     
     public inputTiket() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

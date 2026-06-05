@@ -17,6 +17,8 @@ public class EventManagement extends javax.swing.JFrame {
      */
     public EventManagement() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         loadEventData();
         updateQuickInfo();
         this.setLocationRelativeTo(null);

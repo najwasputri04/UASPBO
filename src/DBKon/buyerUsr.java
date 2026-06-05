@@ -25,6 +25,8 @@ public class buyerUsr extends javax.swing.JFrame {
     
     public buyerUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
         

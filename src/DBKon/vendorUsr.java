@@ -24,6 +24,8 @@ public class vendorUsr extends javax.swing.JFrame {
     
     public vendorUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
 

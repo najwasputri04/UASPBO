@@ -22,6 +22,8 @@ public class updateVendor extends javax.swing.JFrame {
      */
     public updateVendor() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
         

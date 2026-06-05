@@ -17,6 +17,8 @@ public class addEvent extends javax.swing.JFrame {
      */
     public addEvent() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         this.setLocationRelativeTo(null);
         
         btnSave.addActionListener(e -> saveEvent());

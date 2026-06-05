@@ -20,6 +20,8 @@ public class deleteTiket extends javax.swing.JFrame {
      */
     public deleteTiket() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

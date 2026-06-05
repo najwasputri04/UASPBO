@@ -25,7 +25,8 @@ public class BuyerEdit extends javax.swing.JFrame {
      */
     public BuyerEdit(String buyerId) {
         initComponents();
-
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.buyerId = buyerId;
         this.setLocationRelativeTo(null);

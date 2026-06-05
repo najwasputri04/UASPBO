@@ -23,6 +23,8 @@ public class eventUsr extends javax.swing.JFrame {
     
     public eventUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         loadEventData();
         updateQuickInfo();
         this.setVisible(true);

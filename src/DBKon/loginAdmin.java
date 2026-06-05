@@ -21,6 +21,8 @@ public class loginAdmin extends javax.swing.JFrame {
      */
     public loginAdmin() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
     }
