@@ -546,16 +546,59 @@ public class vendor extends javax.swing.JFrame {
         tambah.setVisible(true);
         this.dispose();
     }
-
+    //revisi vendor delete dan update
     private void editVendorMouseClicked(java.awt.event.MouseEvent evt) {
-        updateVendor edit = new updateVendor();
+         int selectedRow = vendorTable.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Pilih dulu data vendor yang ingin diedit!",
+                "Peringatan",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String vendorId      = vendorTable.getValueAt(selectedRow, 0).toString();
+        String nama          = vendorTable.getValueAt(selectedRow, 1).toString();
+        String tipeService   = vendorTable.getValueAt(selectedRow, 2).toString();
+        String contactPerson = vendorTable.getValueAt(selectedRow, 3).toString();
+        String contactNumber = vendorTable.getValueAt(selectedRow, 4).toString();
+
+        updateVendor edit = new updateVendor(vendorId, nama, tipeService, contactPerson, contactNumber);
         edit.setVisible(true);
         this.dispose();
     }
 
     private void deleteVendorMouseClicked(java.awt.event.MouseEvent evt) {
-        deleteVendor hapus = new deleteVendor();
-        hapus.setVisible(true);
+        int selectedRow = vendorTable.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Pilih dulu data vendor yang ingin dihapus!",
+                "Peringatan",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String vendorId   = vendorTable.getValueAt(selectedRow, 0).toString();
+        String namaVendor = vendorTable.getValueAt(selectedRow, 1).toString();
+
+        int jawab = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Yakin mau menghapus vendor \"" + namaVendor + "\"?",
+            "Konfirmasi Hapus",
+            javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (jawab == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                Statement st = kon.con.createStatement();
+                st.executeUpdate("DELETE FROM vendor WHERE vendor_id = '" + vendorId + "'");
+                javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+                setTable("");
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                javax.swing.JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage());
+            }
+        }
     }
 
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {
