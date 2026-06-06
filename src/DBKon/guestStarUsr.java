@@ -24,6 +24,8 @@ public class guestStarUsr extends javax.swing.JFrame {
     
     public guestStarUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -67,8 +69,8 @@ public class guestStarUsr extends javax.swing.JFrame {
         int x = screenSize.width - frameWidth;
         int y = 0; // 0 berarti mepet ke atas
 
-        this.setTable("");
         // Set lokasi frame
+        this.setTable("");
         this.setLocation(x, y);
     }
 

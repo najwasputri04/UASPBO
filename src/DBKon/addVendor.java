@@ -22,6 +22,8 @@ public class addVendor extends javax.swing.JFrame {
      */
     public addVendor() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

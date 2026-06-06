@@ -22,9 +22,29 @@ public class updateVendor extends javax.swing.JFrame {
      */
     public updateVendor() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
+        
+        
     }
+    
+    public updateVendor(String vendorId, String nama, String tipeService, String contactPerson, String contactNumber) {
+    initComponents();
+    kon = new Koneksi();
+    this.setLocationRelativeTo(null);
+
+    idV.setText(vendorId);
+    namaVendor1.setText(nama);
+    serviceType.setText(tipeService);
+    cp.setText(contactPerson);
+    cn.setText(contactNumber);
+
+    idV.setEditable(false);
+    idV.setBackground(new java.awt.Color(220, 220, 220));
+    idV.setToolTipText("ID Vendor tidak dapat diubah");
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,6 +213,11 @@ public class updateVendor extends javax.swing.JFrame {
         String contactperson = cp.getText();
         String contactnumber = cn.getText();
         String id = idV.getText();
+        
+        if (nama.isEmpty() || tipeService.isEmpty() || contactperson.isEmpty() || contactnumber.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
         
         String query_update ="UPDATE vendor SET "
                         + "vendor_name = '" + nama + "', "

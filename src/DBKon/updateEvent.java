@@ -19,6 +19,8 @@ public class updateEvent extends javax.swing.JFrame {
     
     public updateEvent(int id, String name, String location, String date, String desc, String status) {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         this.setLocationRelativeTo(null);
         
           btnUpdate.setContentAreaFilled(false);

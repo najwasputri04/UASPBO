@@ -21,6 +21,8 @@ public class deleteVendor extends javax.swing.JFrame {
      */
     public deleteVendor() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

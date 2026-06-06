@@ -18,12 +18,16 @@ public class BuyerManagement extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuyerManagement.class.getName());
     
     private javax.swing.table.DefaultTableModel tableModel;
+    
+    private boolean deleteMode = false;
 
     /**
      * Creates new form BuyerManagement
      */
     public BuyerManagement() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         tableBuyer.setRowSelectionAllowed(true);
         tableBuyer.setSelectionMode(
             javax.swing.ListSelectionModel.SINGLE_SELECTION
@@ -127,66 +131,49 @@ public class BuyerManagement extends javax.swing.JFrame {
         });
         
         panelBtnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-
-                // Cek dulu apakah ada yang dicentang
-                boolean adaYangDipilih = false;
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            if (!deleteMode) {
+                // Masuk mode delete
+                deleteMode = true;
+                showSelectColumn();
+                jPanel20.setText("CONFIRM DELETE");
+            } else {
+                // Proses hapus
+                java.util.ArrayList<String> selectedIds = new java.util.ArrayList<>();
                 for (int i = 0; i < tableModel.getRowCount(); i++) {
                     Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
-                    if (checked != null && checked) {
-                        adaYangDipilih = true;
-                        break;
-                    }
+                    if (checked != null && checked)
+                        selectedIds.add(tableModel.getValueAt(i, 1).toString());
                 }
 
-                if (!adaYangDipilih) {
+                if (selectedIds.isEmpty()) {
                     javax.swing.JOptionPane.showMessageDialog(
-                            BuyerManagement.this,
-                            "Pilih minimal satu data!",
-                            "Peringatan",
-                            javax.swing.JOptionPane.WARNING_MESSAGE);
+                        BuyerManagement.this, "Pilih minimal satu data!",
+                        "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                // ✅ TAMBAHAN: konfirmasi sebelum hapus
                 int confirm = javax.swing.JOptionPane.showConfirmDialog(
-                        BuyerManagement.this,
-                        "Yakin ingin menghapus data yang dipilih?\nSemua transaksi terkait juga akan ikut terhapus.",
-                        "Konfirmasi Hapus",
-                        javax.swing.JOptionPane.YES_NO_OPTION,
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                if (confirm != javax.swing.JOptionPane.YES_OPTION) {
-                    return; // Batal hapus
-                }
-
-                // Lanjut hapus jika user klik YES
-                java.util.ArrayList<String> selectedIds = new java.util.ArrayList<>();
-
-                for (int i = 0; i < tableModel.getRowCount(); i++) {
-                    Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
-
-                    if (checked != null && checked) {
-                        String id = tableModel.getValueAt(i, 1).toString();
-                        selectedIds.add(id);
-                    }
-                }
-
-                // Hapus semua data terpilih
-                for (String id : selectedIds) {
-                    deleteBuyer(id);
-                }
-
-                // Refresh tabel
-                loadBuyerData();
-                
-                javax.swing.JOptionPane.showMessageDialog(
                     BuyerManagement.this,
-                    "Data berhasil dihapus!"
-                );
+                    "Yakin hapus " + selectedIds.size() + " data?",
+                    "Konfirmasi Hapus",
+                    javax.swing.JOptionPane.YES_NO_OPTION,
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+
+                if (confirm != javax.swing.JOptionPane.YES_OPTION) return;
+
+                for (String id : selectedIds) deleteBuyer(id);
+                loadBuyerData();
+
+                // Reset
+                deleteMode = false;
+                hideSelectColumn();
+                jPanel20.setText("DELETE SELECTED");
+                javax.swing.JOptionPane.showMessageDialog(BuyerManagement.this, selectedIds.size() + " data berhasil dihapus!");
             }
-        });
+        }
+    });
     }
     
     private void initTableModel(){
@@ -207,8 +194,21 @@ public class BuyerManagement extends javax.swing.JFrame {
         };
         tableBuyer.setModel(tableModel);
         tableBuyer.getColumnModel().getColumn(0).setMaxWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setMinWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tableBuyer.getColumnModel().getColumn(0).setMinWidth(60);
+        tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
+        hideSelectColumn();
+    }
+    
+    private void showSelectColumn() {
+        tableBuyer.getColumnModel().getColumn(0).setMaxWidth(60);
+        tableBuyer.getColumnModel().getColumn(0).setMinWidth(60);
+        tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
+    }
+
+    private void hideSelectColumn() {
+        tableBuyer.getColumnModel().getColumn(0).setMaxWidth(0);
+        tableBuyer.getColumnModel().getColumn(0).setMinWidth(0);
+        tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
     
     private void loadBuyerData(){

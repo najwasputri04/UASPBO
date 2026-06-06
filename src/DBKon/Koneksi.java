@@ -6,6 +6,11 @@ package DBKon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+//logo peta
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import java.net.URL;
+import java.awt.Image;
 
 /**
  *
@@ -36,6 +41,20 @@ public class Koneksi {
         }
         
         
+    }
+    //ngeset iconnya jadi logo aplikasi kita
+    public static void setAppIcon(JFrame frame) {
+        try {
+            URL iconURL = Koneksi.class.getResource("/DBKon/logoPeta.png"); 
+            if (iconURL != null) {
+                Image icon = new ImageIcon(iconURL).getImage();
+                frame.setIconImage(icon);
+            } else {
+                System.out.println("Logo logoPeta.png tidak ditemukan di package DBKon!");
+            }
+        } catch (Exception e) {
+            System.out.println("Gagal memasang icon: " + e.getMessage());
+        }
     }
     
     public static void main (String args[]){

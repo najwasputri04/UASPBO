@@ -20,6 +20,8 @@ public class updateTiket extends javax.swing.JFrame {
      */
     public updateTiket() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

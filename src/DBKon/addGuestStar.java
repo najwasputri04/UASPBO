@@ -24,6 +24,8 @@ public class addGuestStar extends javax.swing.JFrame {
      */
     public addGuestStar() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }

@@ -25,6 +25,8 @@ public class buyerUsr extends javax.swing.JFrame {
     
     public buyerUsr() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -71,25 +73,19 @@ public class buyerUsr extends javax.swing.JFrame {
     }
     
         private void initTableModel(){
-        String[] columns = {"SELECT","BUYER ID", "FULL NAME", "EMAIL", "CONTACT NUMBER", "EVENT REGISTERED", "TICKET CATEGORY"};
+        String[] columns = {"BUYER ID", "FULL NAME", "EMAIL", "CONTACT NUMBER", "EVENT REGISTERED", "TICKET CATEGORY"};
         tableModel = new javax.swing.table.DefaultTableModel(columns, 0){
             @Override
             public Class<?> getColumnClass(int column){
-                if(column == 0){
-                    return Boolean.class;
-                }
                 return String.class;
             }
 
             @Override
             public boolean isCellEditable(int row, int col){
-                return col == 0;
+                return false; // user view, semua non-editable
             }
         };
         tableBuyer.setModel(tableModel);
-        tableBuyer.getColumnModel().getColumn(0).setMaxWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setMinWidth(60);
-tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
     }
         
     private void loadBuyerData(){
@@ -111,7 +107,7 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
                 java.sql.ResultSet rs = ps.executeQuery()) { 
             while (rs.next()) {
                 tableModel.addRow(new Object[]{
-                    false,
+                    // false,  ← hapus ini
                     rs.getString("buyer_id"),
                     rs.getString("full_name"),
                     rs.getString("email_address"),

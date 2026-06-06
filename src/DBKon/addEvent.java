@@ -17,7 +17,21 @@ public class addEvent extends javax.swing.JFrame {
      */
     public addEvent() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         this.setLocationRelativeTo(null);
+        
+        btnSave.setContentAreaFilled(false);
+            btnSave.setOpaque(true);
+
+            btnCancel.setContentAreaFilled(false);
+            btnCancel.setOpaque(true);
+        
+          // Setup Date Spinner
+        javax.swing.SpinnerDateModel dateModel = new javax.swing.SpinnerDateModel();
+        spnDate.setModel(dateModel);
+        javax.swing.JSpinner.DateEditor dateEditor = new javax.swing.JSpinner.DateEditor(spnDate, "yyyy-MM-dd");
+        spnDate.setEditor(dateEditor);
         
         btnSave.addActionListener(e -> saveEvent());
         
@@ -27,12 +41,17 @@ public class addEvent extends javax.swing.JFrame {
     private void saveEvent(){
         String name = txtName.getText().trim();
         String location = txtLocation.getText().trim();
-        String date = txtDate.getText().trim();
+        
+                // ✅ ini yang baru
+        java.util.Date selectedDate = (java.util.Date) spnDate.getValue();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(selectedDate);
+        
         String desc = txtDesc.getText().trim();
         String status = cmbStatus.getSelectedItem().toString();
         
         //validasi input kosong
-        if(name.isEmpty() || location.isEmpty() || date.isEmpty()){
+        if(name.isEmpty() || location.isEmpty()){
             javax.swing.JOptionPane.showMessageDialog(this,
                 "Nama Event, Location, dan Date wajib diisi!");
             return;
@@ -74,13 +93,13 @@ public class addEvent extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtLocation = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDesc = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         cmbStatus = new javax.swing.JComboBox<>();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        spnDate = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create Event Data");
@@ -135,9 +154,9 @@ public class addEvent extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtName)
                     .addComponent(txtLocation)
-                    .addComponent(txtDate)
                     .addComponent(txtDesc)
-                    .addComponent(cmbStatus, 0, 134, Short.MAX_VALUE))
+                    .addComponent(cmbStatus, 0, 134, Short.MAX_VALUE)
+                    .addComponent(spnDate))
                 .addGap(92, 92, 92))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +186,7 @@ public class addEvent extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -229,7 +248,7 @@ public class addEvent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtDate;
+    private javax.swing.JSpinner spnDate;
     private javax.swing.JTextField txtDesc;
     private javax.swing.JTextField txtLocation;
     private javax.swing.JTextField txtName;

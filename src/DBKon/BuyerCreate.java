@@ -22,6 +22,8 @@ public class BuyerCreate extends javax.swing.JFrame {
      */
     public BuyerCreate() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
 

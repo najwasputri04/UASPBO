@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class GuestStarManagement extends javax.swing.JFrame {
     
     Koneksi kon;
-    
+    private javax.swing.table.DefaultTableModel tableModel;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GuestStarManagement.class.getName());
 
     /**
@@ -24,6 +24,8 @@ public class GuestStarManagement extends javax.swing.JFrame {
      */
     public GuestStarManagement() {
         initComponents();
+        //ini nambahin icon
+        Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
         
@@ -554,15 +556,67 @@ public class GuestStarManagement extends javax.swing.JFrame {
 
     private void editGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editGuestStarMouseClicked
         // TODO add your handling code here:
-        updateGuestStar edit = new updateGuestStar();
+        int selectedRow = -1;
+        int totalChecked = 0;
+
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
+            if (checked != null && checked) {
+                selectedRow = i;
+                totalChecked++;
+            }
+        }
+
+        if (totalChecked == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih satu data dulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (totalChecked > 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Edit hanya bisa satu data!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String id = tableModel.getValueAt(selectedRow, 2).toString(); 
+        updateGuestStar edit = new updateGuestStar(id); 
         edit.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_editGuestStarMouseClicked
 
     private void deleteGuestStarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteGuestStarMouseClicked
         // TODO add your handling code here:
-        deleteGuestStar hapus = new deleteGuestStar();
-        hapus.setVisible(true);
+        boolean adaYangDipilih = false;
+       
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
+            if (checked != null && checked) { adaYangDipilih = true; break; }
+        }
+
+        if (!adaYangDipilih) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Pilih minimal satu data!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+            "Yakin ingin menghapus data yang dipilih?", "Konfirmasi Hapus",
+            javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.WARNING_MESSAGE);
+        if (confirm != javax.swing.JOptionPane.YES_OPTION) return;
+
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            Boolean checked = (Boolean) tableModel.getValueAt(i, 0);
+            if (checked != null && checked) {
+                String id = tableModel.getValueAt(i, 2).toString();
+                try {
+                    java.sql.PreparedStatement ps = kon.con.prepareStatement("DELETE FROM guest_star WHERE talent_id = ?");
+                    ps.setString(1, id);
+                    ps.executeUpdate();
+                } catch (Exception e) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Gagal hapus: " + e.getMessage());
+                }
+            }
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(this, "Data berhasil dihapus!");
+        setTable("");
 
     }//GEN-LAST:event_deleteGuestStarMouseClicked
 
@@ -599,39 +653,47 @@ public class GuestStarManagement extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new GuestStarManagement().setVisible(true));
     }
     
-    public void setTable(String search){
-        // TODO add your handling code here:
-        Object header[] = {"Talent ID", "Talent Name", "Genre", "contactPerson", "Fee (IDR)", "Rider Info"};
-        DefaultTableModel data = new DefaultTableModel(null, header);
-        
-       // set model table
-        GuestStarTable.setModel(data);
-        
-       //qry
-       String tampil = "SELECT * FROM guest_star WHERE talent_name LIKE '%"+ search +"%'";
-       
-        try {
-            Statement st = kon.con.createStatement();
-            ResultSet rs = st.executeQuery(tampil);
-            
-            // menampilkan data
-            while (rs.next()){
-                String kolom1 = rs.getString(1);
-                String kolom2 = rs.getString(2);
-                String kolom3 = rs.getString(3);
-                String kolom4 = rs.getString(4);
-                String kolom5 = rs.getString(5);
-                String kolom6 = rs.getString(6);
-                String kolom[] = {kolom1, kolom2, kolom3, kolom4, kolom5, kolom6};
-                data.addRow(kolom);
+    public void setTable(String search) 
+    {
+        String[] header = {"SELECT", "NO", "TALENT ID", "Talent Name", "Genre", "Contact Person", "Fee (IDR)", "Rider Info"};
+        tableModel = new javax.swing.table.DefaultTableModel(null, header){
+            @Override
+            public Class<?> getColumnClass(int col){
+                return col == 0 ? Boolean.class : String.class;
             }
-            
-            int jumlah = GuestStarTable.getRowCount();
-            total.setText(String.valueOf(jumlah));
+            @Override
+            public boolean isCellEditable(int row, int col){
+                return col == 0;
+            }
+        };
 
+        GuestStarTable.setModel(tableModel);
+        GuestStarTable.getColumnModel().getColumn(0).setMaxWidth(60);
+        GuestStarTable.getColumnModel().getColumn(0).setMinWidth(60);
+
+        String sql = "SELECT * FROM guest_star WHERE talent_name LIKE '%" + search + "%'";
+        try {
+            java.sql.Statement st = kon.con.createStatement();
+            java.sql.ResultSet rs = st.executeQuery(sql);
+            int nomer = 1;
+            while (rs.next()){
+                tableModel.addRow(new Object[]{
+                    false,
+                    nomer++,           // nomor urut tampilan
+                    rs.getString(1),   // talent_id (disembunyiin)
+                    rs.getString(2), rs.getString(3),
+                    rs.getString(4), rs.getString(5), rs.getString(6)
+                });
+            }
+            total.setText(String.valueOf(GuestStarTable.getRowCount()));
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());          
+            System.out.println("Error: " + e.getMessage());
         }
+
+        // sembunyiin kolom TALENT ID
+        GuestStarTable.getColumnModel().getColumn(2).setMinWidth(0);
+        GuestStarTable.getColumnModel().getColumn(2).setMaxWidth(0);
+        GuestStarTable.getColumnModel().getColumn(2).setWidth(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
