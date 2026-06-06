@@ -775,19 +775,19 @@ tableBuyer.getColumnModel().getColumn(0).setPreferredWidth(60);
         String sql = "SELECT b.buyer_id, b.full_name, b.email_address, b.contact_number, " +
                      "e.event_name, t.category " +
                      "FROM buyer b " +
-                     "LEFT JOIN transaction tr ON b.buyer_id = tr.buyer_id " +
+                     "LEFT JOIN `transaction` tr ON b.buyer_id = tr.buyer_id " +
                      "LEFT JOIN ticket t ON tr.ticket_id = t.ticket_id " +
                      "LEFT JOIN event e ON t.event_id = e.event_id " +
                      "WHERE LOWER(b.full_name) LIKE ? OR LOWER(b.buyer_id) LIKE ?";
 
         try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql)) {
-
             ps.setString(1, "%" + keyword + "%");
             ps.setString(2, "%" + keyword + "%");
 
             java.sql.ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 tableModel.addRow(new Object[]{
+                    false,                              // ← ini yang kurang
                     rs.getString("buyer_id"),
                     rs.getString("full_name"),
                     rs.getString("email_address"),

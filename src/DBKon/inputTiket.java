@@ -196,28 +196,42 @@ public class inputTiket extends javax.swing.JFrame {
 
     private void addTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTicketBtnMouseClicked
         // TODO add your handling code here:
-        String eventID = eventIDTf.getText();
-        String category = categoryTf.getText();
-        String price = priceTf.getText();
-        String stock = totalStockTf.getText();
-        String availableStock = availableStockTf.getText();
-        
-        if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
-            return;
-        }
-        
-        String query_tambah = "insert into ticket (event_id, category, price, total_stock, available_stock) values('"+eventID+"', '"+category+"', '"+price+"', '"+stock+"', + '"+availableStock+"')";
-        
-        try {
-            Statement st = kon.con.createStatement();
-            st.executeUpdate(query_tambah);
-            
-            JOptionPane.showMessageDialog(null, "Data berhasil ditambahkan");
-            dispose();
-        } catch (Exception e) {
-            System.out.println("Error : " + e.getMessage());
-        }
+            String eventID = eventIDTf.getText().trim();
+            String category = categoryTf.getText().trim();
+            String price = priceTf.getText().trim();
+            String stock = totalStockTf.getText().trim();
+            String availableStock = availableStockTf.getText().trim();
+
+            if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+                return;
+            }
+
+            try {
+                // Cek dulu apakah event_id ada di tabel event
+                Statement st = kon.con.createStatement();
+                java.sql.ResultSet rs = st.executeQuery("SELECT event_id FROM event WHERE event_id = '" + eventID + "'");
+
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Event ID tidak ditemukan! Pastikan event sudah dibuat terlebih dahulu.");
+                    return;
+                }
+
+                // Kalau ada, baru insert
+                String query_tambah = "INSERT INTO ticket (event_id, category, price, total_stock, available_stock) VALUES('"
+                        + eventID + "', '"
+                        + category + "', '"
+                        + price + "', '"
+                        + stock + "', '"
+                        + availableStock + "')";
+
+                st.executeUpdate(query_tambah);
+                JOptionPane.showMessageDialog(null, "Data berhasil ditambahkan");
+                dispose();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
     }//GEN-LAST:event_addTicketBtnMouseClicked
 
     /**
