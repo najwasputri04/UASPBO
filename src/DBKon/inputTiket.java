@@ -25,6 +25,49 @@ public class inputTiket extends javax.swing.JFrame {
         Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
+        
+        loadEventCombo();
+        
+        categoryComb.addItem("VVIP");
+        categoryComb.addItem("VIP");
+        categoryComb.addItem("Regular");
+        
+        categoryComb.addActionListener(e -> loadCategoryCombo());
+    }
+    
+    private void loadEventCombo() {
+        eventComb.removeAllItems();
+        String dropdownEvent = "select event_id, event_name from event order by event_name";
+        
+        try(java.sql.PreparedStatement ps = kon.con.prepareStatement(dropdownEvent);
+            java.sql.ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                eventComb.addItem(rs.getInt("event_id") + "|" + rs.getString("event_name"));
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load event: " + e.getMessage());
+        }
+    }
+    
+    private void loadCategoryCombo() {
+        categoryComb.removeAllItems();
+        if (eventComb.getSelectedItem() == null) return;
+
+        // Ambil event_id dari item yang dipilih (format "id|nama")
+        String selected = eventComb.getSelectedItem().toString();
+        int eventID = Integer.parseInt(selected.split("\\|")[0]);
+
+        String sql = "select distinct category from ticket where event_id=? order by category";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql)) {
+            ps.setInt(1, eventID);
+            java.sql.ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                categoryComb.addItem(rs.getString("category"));
+            }
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load kategori tiket: " + e.getMessage());
+        }
     }
        
 
@@ -45,12 +88,12 @@ public class inputTiket extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        eventIDTf = new javax.swing.JTextField();
         totalStockTf = new javax.swing.JTextField();
-        categoryTf = new javax.swing.JTextField();
         priceTf = new javax.swing.JTextField();
         availableStockTf = new javax.swing.JTextField();
         addTicketBtn = new javax.swing.JButton();
+        categoryComb = new javax.swing.JComboBox<>();
+        eventComb = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Create Ticket Data");
@@ -79,7 +122,7 @@ public class inputTiket extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
-        jLabel3.setText("ID Event :");
+        jLabel3.setText("Event :");
 
         jLabel4.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
         jLabel4.setText("Kategori :");
@@ -93,11 +136,7 @@ public class inputTiket extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
         jLabel7.setText("Stok Tersedia :");
 
-        eventIDTf.addActionListener(this::eventIDTfActionPerformed);
-
         totalStockTf.addActionListener(this::totalStockTfActionPerformed);
-
-        categoryTf.addActionListener(this::categoryTfActionPerformed);
 
         availableStockTf.addActionListener(this::availableStockTfActionPerformed);
 
@@ -109,6 +148,8 @@ public class inputTiket extends javax.swing.JFrame {
             }
         });
         addTicketBtn.addActionListener(this::addTicketBtnActionPerformed);
+
+        eventComb.addActionListener(this::eventCombActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,10 +171,10 @@ public class inputTiket extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(categoryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eventIDTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(priceTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(eventComb, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(priceTf, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                                        .addComponent(categoryComb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -148,14 +189,14 @@ public class inputTiket extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(eventIDTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(eventComb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(categoryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoryComb, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(priceTf, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
@@ -168,7 +209,7 @@ public class inputTiket extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(availableStockTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(addTicketBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -188,53 +229,41 @@ public class inputTiket extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addTicketBtnActionPerformed
 
-    private void eventIDTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventIDTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eventIDTfActionPerformed
-
-    private void categoryTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_categoryTfActionPerformed
-
     private void addTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTicketBtnMouseClicked
-        // TODO add your handling code here:
-            String eventID = eventIDTf.getText().trim();
-            String category = categoryTf.getText().trim();
-            String price = priceTf.getText().trim();
-            String stock = totalStockTf.getText().trim();
-            String availableStock = availableStockTf.getText().trim();
+        String price = priceTf.getText();
+        String stock = totalStockTf.getText();
+        String availableStock = availableStockTf.getText();
 
-            if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
-                return;
-            }
+        if (eventComb.getSelectedItem() == null || categoryComb.getSelectedItem() == null || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
+            return;
+        }
 
-            try {
-                // Cek dulu apakah event_id ada di tabel event
-                Statement st = kon.con.createStatement();
-                java.sql.ResultSet rs = st.executeQuery("SELECT event_id FROM event WHERE event_id = '" + eventID + "'");
+        String selected = eventComb.getSelectedItem().toString();
+        int eventID = Integer.parseInt(selected.split("\\|")[0].trim());
+        String category = categoryComb.getSelectedItem().toString();
 
-                if (!rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Event ID tidak ditemukan! Pastikan event sudah dibuat terlebih dahulu.");
-                    return;
-                }
+        String query_tambah = "insert into ticket (event_id, category, price, total_stock, available_stock) values(?, ?, ?, ?, ?)";
 
-                // Kalau ada, baru insert
-                String query_tambah = "INSERT INTO ticket (event_id, category, price, total_stock, available_stock) VALUES('"
-                        + eventID + "', '"
-                        + category + "', '"
-                        + price + "', '"
-                        + stock + "', '"
-                        + availableStock + "')";
-
-                st.executeUpdate(query_tambah);
-                JOptionPane.showMessageDialog(null, "Data berhasil ditambahkan");
-                dispose();
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-            }
+        try {
+            java.sql.PreparedStatement ps = kon.con.prepareStatement(query_tambah);
+            ps.setInt(1, eventID);
+            ps.setString(2, category);
+            ps.setString(3, price);
+            ps.setString(4, stock);
+            ps.setString(5, availableStock);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Data berhasil ditambahkan");
+            dispose();
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_addTicketBtnMouseClicked
+
+    private void eventCombActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventCombActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eventCombActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,8 +293,8 @@ public class inputTiket extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTicketBtn;
     private javax.swing.JTextField availableStockTf;
-    private javax.swing.JTextField categoryTf;
-    private javax.swing.JTextField eventIDTf;
+    private javax.swing.JComboBox<String> categoryComb;
+    private javax.swing.JComboBox<String> eventComb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

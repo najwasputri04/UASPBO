@@ -20,11 +20,63 @@ public class updateTiket extends javax.swing.JFrame {
      */
     public updateTiket() {
         initComponents();
-        //ini nambahin icon
         Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
     }
+    
+    public updateTiket(String ticketId) {
+        initComponents();
+        Koneksi.setAppIcon(this);
+        kon = new Koneksi();
+        this.setLocationRelativeTo(null);
+
+        loadEventCombo();
+        loadCategoryCombo();
+
+        ticketIDTf.setText(ticketId);
+        ticketIDTf.setEditable(false);
+
+        try {
+            String query = "SELECT t.*, e.event_name FROM ticket t JOIN event e ON t.event_id = e.event_id WHERE t.ticket_id = ?";
+            java.sql.PreparedStatement ps = kon.con.prepareStatement(query);
+            ps.setString(1, ticketId);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String eventItem = rs.getInt("event_id") + "|" + rs.getString("event_name");
+                eventComb.setSelectedItem(eventItem);
+                categoryComb.setSelectedItem(rs.getString("category"));
+                priceTf.setText(rs.getString("price"));
+                totalStockTf.setText(rs.getString("total_stock"));
+                availableStockTf.setText(rs.getString("available_stock"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadEventCombo() {
+        eventComb.removeAllItems();
+        String sql = "SELECT event_id, event_name FROM event ORDER BY event_name";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                eventComb.addItem(rs.getInt("event_id") + "|" + rs.getString("event_name"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCategoryCombo() {
+        categoryComb.removeAllItems();
+        categoryComb.addItem("VVIP");
+        categoryComb.addItem("VIP");
+        categoryComb.addItem("Regular");
+    }
+
+
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,13 +96,13 @@ public class updateTiket extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        eventIDTf = new javax.swing.JTextField();
         totalStockTf = new javax.swing.JTextField();
         ticketIDTf = new javax.swing.JTextField();
-        categoryTf = new javax.swing.JTextField();
         priceTf = new javax.swing.JTextField();
         availableStockTf = new javax.swing.JTextField();
         editTicketBtn = new javax.swing.JButton();
+        categoryComb = new javax.swing.JComboBox<>();
+        eventComb = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Edit Ticket Data");
@@ -82,7 +134,7 @@ public class updateTiket extends javax.swing.JFrame {
         jLabel2.setText("ID Tiket :");
 
         jLabel3.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
-        jLabel3.setText("ID Event :");
+        jLabel3.setText("Event :");
 
         jLabel4.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
         jLabel4.setText("Kategori :");
@@ -96,11 +148,7 @@ public class updateTiket extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Poppins Medium", 1, 18)); // NOI18N
         jLabel7.setText("Stok Tersedia :");
 
-        eventIDTf.addActionListener(this::eventIDTfActionPerformed);
-
         totalStockTf.addActionListener(this::totalStockTfActionPerformed);
-
-        categoryTf.addActionListener(this::categoryTfActionPerformed);
 
         availableStockTf.addActionListener(this::availableStockTfActionPerformed);
 
@@ -128,13 +176,13 @@ public class updateTiket extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ticketIDTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eventIDTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalStockTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(availableStockTf, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ticketIDTf, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(priceTf, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(totalStockTf, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(availableStockTf, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                    .addComponent(categoryComb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(eventComb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(59, 59, 59))
             .addGroup(layout.createSequentialGroup()
                 .addGap(161, 161, 161)
@@ -149,15 +197,15 @@ public class updateTiket extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(ticketIDTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(eventIDTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(eventComb, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(categoryTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(categoryComb, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(priceTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,7 +217,7 @@ public class updateTiket extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(availableStockTf, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(editTicketBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
@@ -189,38 +237,38 @@ public class updateTiket extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editTicketBtnActionPerformed
 
-    private void eventIDTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventIDTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eventIDTfActionPerformed
-
-    private void categoryTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_categoryTfActionPerformed
-
     private void editTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editTicketBtnMouseClicked
         // TODO add your handling code here:
         String ticketID = ticketIDTf.getText();
-        String eventID = eventIDTf.getText();
-        String category = categoryTf.getText();
         String price = priceTf.getText();
         String stock = totalStockTf.getText();
         String availableStock = availableStockTf.getText();
-        
-        if (eventID.isEmpty() || category.isEmpty() || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
+
+        if (eventComb.getSelectedItem() == null || categoryComb.getSelectedItem() == null || price.isEmpty() || stock.isEmpty() || availableStock.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Semua field harus diisi!");
             return;
         }
-        
-        String query_tambah = "update ticket set event_id = '"+eventID+"', category = '"+category+"', price = '"+price+"', total_stock = '"+stock+"', available_stock = '"+availableStock+"' where ticket_id = '"+ticketID+"'";
-        
+
+        String selected = eventComb.getSelectedItem().toString();
+        int eventID = Integer.parseInt(selected.split("\\|")[0].trim());
+        String category = categoryComb.getSelectedItem().toString();
+
+        String query_update = "UPDATE ticket SET event_id=?, category=?, price=?, total_stock=?, available_stock=? WHERE ticket_id=?";
+
         try {
-            Statement st = kon.con.createStatement();
-            st.executeUpdate(query_tambah);
-            
+            java.sql.PreparedStatement ps = kon.con.prepareStatement(query_update);
+            ps.setInt(1, eventID);
+            ps.setString(2, category);
+            ps.setString(3, price);
+            ps.setString(4, stock);
+            ps.setString(5, availableStock);
+            ps.setString(6, ticketID);
+            ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diupdate");
             dispose();
         } catch (Exception e) {
             System.out.println("Error : " + e.getMessage());
+            e.printStackTrace();
         }
     }//GEN-LAST:event_editTicketBtnMouseClicked
 
@@ -251,9 +299,9 @@ public class updateTiket extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField availableStockTf;
-    private javax.swing.JTextField categoryTf;
+    private javax.swing.JComboBox<String> categoryComb;
     private javax.swing.JButton editTicketBtn;
-    private javax.swing.JTextField eventIDTf;
+    private javax.swing.JComboBox<String> eventComb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

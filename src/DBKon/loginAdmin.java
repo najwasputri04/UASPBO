@@ -146,27 +146,44 @@ public class loginAdmin extends javax.swing.JFrame {
             //Query login
             String queryLogin = "select * from admin where username=? and password=?";
             
+            //Query cek user
+            String queryUser = "select * from admin where username=?";
+            
             //PreparedStatement
             PreparedStatement ps = kon.con.prepareStatement(queryLogin);
+            PreparedStatement psUser = kon.con.prepareStatement(queryUser);
             
             //Mengisi parameter            
             ps.setString(1, username);
             ps.setString(2, password);
             
+            psUser.setString(1, username);
+            
+            //Paramenter user
+            
             //Jalani query
             ResultSet rs = ps.executeQuery();
+            ResultSet rsUser = psUser.executeQuery();
             
             //Cek login
-            if (rs.next()) {
+            if (username.isEmpty()&& password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username dan Password harus diisi");
+            } else if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username harus diisi");
+            } else if (password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Password harus diisi");
+            } else if (password.isEmpty() && username.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Username dan Password harus diisi");
+            } else if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Login berhasil");
-                
                 EventManagement em = new EventManagement();
                 em.setVisible(true);
                 em.toFront();
-                
                 this.dispose();
+            } else if (!rsUser.next()){
+                JOptionPane.showMessageDialog(null, "Username salah");
             } else {
-                JOptionPane.showMessageDialog(null, "Username atau Password salah");
+                JOptionPane.showMessageDialog(null, "Password salah");
             }
         } catch (Exception e){
             System.out.println("Error : "+e.getMessage());
