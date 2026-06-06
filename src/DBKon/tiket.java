@@ -26,13 +26,13 @@ public class tiket extends javax.swing.JFrame {
         model.setRowCount(0);
         
         try {
-            String showTable = "select * from ticket";
+            String showTable = "select t.ticket_id, e.event_name, t.category, t.price, t.total_stock, t.available_stock from ticket t join event e on t.event_id = e.event_id";
             ResultSet rs = kon.con.createStatement().executeQuery(showTable);
         
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("ticket_id"),
-                    rs.getString("event_id"),
+                    rs.getString("event_name"),
                     rs.getString("category"),
                     rs.getString("price"),
                     rs.getString("total_stock"),
@@ -192,7 +192,7 @@ public class tiket extends javax.swing.JFrame {
                 .addGroup(eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         eventPanelLayout.setVerticalGroup(
             eventPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +206,7 @@ public class tiket extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         vendorPanel.setPreferredSize(new java.awt.Dimension(196, 81));
@@ -234,7 +234,7 @@ public class tiket extends javax.swing.JFrame {
                 .addGroup(vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         vendorPanelLayout.setVerticalGroup(
             vendorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +248,7 @@ public class tiket extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         gsPanel.setPreferredSize(new java.awt.Dimension(196, 81));
@@ -276,7 +276,7 @@ public class tiket extends javax.swing.JFrame {
                 .addGroup(gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addComponent(jLabel8))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         gsPanelLayout.setVerticalGroup(
             gsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +290,7 @@ public class tiket extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         ticketPanel.setBackground(new java.awt.Color(248, 102, 102));
@@ -319,7 +319,7 @@ public class tiket extends javax.swing.JFrame {
                 .addGroup(ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(jLabel12))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         ticketPanelLayout.setVerticalGroup(
             ticketPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,7 +333,7 @@ public class tiket extends javax.swing.JFrame {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel13)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buyerPanel.setPreferredSize(new java.awt.Dimension(196, 81));
@@ -361,7 +361,7 @@ public class tiket extends javax.swing.JFrame {
                 .addGroup(buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jLabel15))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         buyerPanelLayout.setVerticalGroup(
             buyerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +375,7 @@ public class tiket extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -433,7 +433,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addNewTicketCategory)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,7 +462,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(editTicketBtn)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,7 +491,7 @@ public class tiket extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(delTicketBtn)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -522,7 +522,7 @@ public class tiket extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ticketID", "eventID", "category", "price", "totalStock", "availableStock"
+                "No", "Event", "Kategori", "Harga", "Total Stok", "Stok Tersedia"
             }
         ));
         jScrollPane1.setViewportView(ticketTable);
@@ -603,20 +603,59 @@ public class tiket extends javax.swing.JFrame {
         inputTiket add = new inputTiket();
         add.setVisible(true);
         add.setLocationRelativeTo(null);
+        add.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                loadTable();
+            }
+        });
     }//GEN-LAST:event_addNewTicketCategoryMouseClicked
 
     private void editTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editTicketBtnMouseClicked
         // TODO add your handling code here:
-        updateTiket edit = new updateTiket();
+        int selectedRow = ticketTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih tiket yang ingin diedit!");
+            return;
+        }
+
+        String ticketId = ticketTable.getValueAt(selectedRow, 0).toString();
+
+        updateTiket edit = new updateTiket(ticketId);
         edit.setVisible(true);
         edit.setLocationRelativeTo(null);
+        edit.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                loadTable();
+            }
+        });
     }//GEN-LAST:event_editTicketBtnMouseClicked
 
     private void delTicketBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delTicketBtnMouseClicked
-        // TODO add your handling code here:
-        deleteTiket delete = new deleteTiket();
-        delete.setVisible(true);
-        delete.setLocationRelativeTo(null);
+        int selectedRow = ticketTable.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Pilih tiket yang ingin dihapus!");
+            return;
+        }
+
+        int ticketId = Integer.parseInt(ticketTable.getValueAt(selectedRow, 0).toString());
+
+        int confirm = JOptionPane.showConfirmDialog(null, "Yakin ingin menghapus tiket ini?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                String query = "delete from  ticket where ticket_id = ?";
+                java.sql.PreparedStatement ps = kon.con.prepareStatement(query);
+                ps.setInt(1, ticketId);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
+                loadTable();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_delTicketBtnMouseClicked
 
     private void srcBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_srcBtnMouseClicked
@@ -631,13 +670,16 @@ public class tiket extends javax.swing.JFrame {
                 return;
             }
             
-            String showTable = "select * from ticket where ticket_id = '"+cariTiket+"'";
-            ResultSet rs = kon.con.createStatement().executeQuery(showTable);
+        String showTable = "select t.ticket_id, e.event_name, t.category, t.price, t.total_stock, t.available_stock from ticket t join event e on t.event_id = e.event_id where e.event_name like ? or t.category like ?";
+        java.sql.PreparedStatement ps = kon.con.prepareStatement(showTable);
+        ps.setString(1, "%" + cariTiket + "%");
+        ps.setString(2, "%" + cariTiket + "%");
+        ResultSet rs = ps.executeQuery();
         
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("ticket_id"),
-                    rs.getString("event_id"),
+                    rs.getString("event_name"),
                     rs.getString("category"),
                     rs.getString("price"),
                     rs.getString("total_stock"),
