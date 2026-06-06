@@ -21,12 +21,33 @@ public class updateGuestStar extends javax.swing.JFrame {
     /**
      * Creates new form updateGuestStar
      */
-    public updateGuestStar() {
+    public updateGuestStar(String talentId) 
+    {
         initComponents();
         //ini nambahin icon
         Koneksi.setAppIcon(this);
         kon = new Koneksi();
         this.setLocationRelativeTo(null);
+        loadData(talentId);
+    }
+    
+    private void loadData(String talentId) 
+    {
+        String sql = "SELECT * FROM guest_star WHERE talent_id = ?";
+        try (java.sql.PreparedStatement ps = kon.con.prepareStatement(sql)) {
+            ps.setString(1, talentId);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id.setText(rs.getString("talent_id"));
+                namaTalent.setText(rs.getString("talent_name"));
+                genre.setSelectedItem(rs.getString("genre"));
+                cp.setText(rs.getString("contact_person"));
+                fee.setText(rs.getString("fee"));
+                rider.setText(rs.getString("rider_info"));
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Gagal load data: " + e.getMessage());
+        }
     }
 
     /**
@@ -271,7 +292,7 @@ public class updateGuestStar extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new updateGuestStar().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new updateGuestStar("1").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
